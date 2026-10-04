@@ -1,0 +1,38 @@
+name: Actualizar Agenda de Terrassa
+
+on:
+  schedule:
+    # Se ejecuta todos los días a las 07:00 AM UTC
+    - cron: '0 7 * * *'
+  workflow_dispatch: # Permite ejecutar el proceso manualmente desde GitHub cuando quieras
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Ejecutar script de extracción
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python main.py
+
+      - name: Publicar cambios
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🤖 Actualización automática de la Agenda de Terrassa"
+          file_pattern: "index.html"

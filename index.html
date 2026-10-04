@@ -3,60 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda de Terrassa - Pròxims Esdeveniments</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Agenda Cultural, Cine i Oci Unificada de Terrassa</title>
     <style>
         :root {
-            --primary: #852144;
-            --primary-hover: #691733;
-            --secondary: #43768b;
-            --secondary-hover: #345c6e;
-            --accent: #e15b64;
-            --bg-light: #f8fafc;
-            --card-bg: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
-            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -4px rgba(0,0,0,0.05);
-            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.08);
+            --primary: #e30613;
+            --primary-dark: #b2050f;
+            --bg-body: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-dark: #212529;
+            --text-muted: #6c757d;
+            --tag-musica: #43768b;
+            --tag-teatre: #852144;
+            --tag-cine: #fd7e14;
+            --tag-cultura: #198754;
+            --tag-esports: #20c997;
+            --tag-alert: #dc3545;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-light);
+            background-color: var(--bg-body);
             color: var(--text-dark);
-            line-height: 1.5;
-            padding-bottom: 60px;
+            line-height: 1.6;
         }
 
-        /* Top Notification Bar */
-        .alert-banner {
-            background: linear-gradient(135deg, #e11d48, #be123c);
-            color: #ffffff;
-            padding: 12px 20px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.95rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        /* Header Layout */
         header {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-            padding: 30px 20px;
+            background-color: #ffffff;
+            border-bottom: 3px solid var(--primary);
+            padding: 2rem 1rem;
             text-align: center;
-            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .header-container {
@@ -64,902 +46,788 @@
             margin: 0 auto;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
+        .logo-area h1 {
             color: var(--primary);
-            letter-spacing: -0.05em;
-            margin-bottom: 8px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.3rem;
         }
 
-        .subtitle {
-            color: var(--text-muted);
+        .logo-area p {
             font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        .meta-date {
-            display: inline-flex;
-            align-items: center;
-            background-color: #f1f5f9;
-            color: var(--text-dark);
-            padding: 6px 16px;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            border: 1px solid var(--border-color);
-            margin-bottom: 25px;
-        }
-
-        .meta-date .indicator {
-            width: 8px;
-            height: 8px;
-            background-color: #10b981;
-            border-radius: 50%;
-            margin-right: 8px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-
-        /* Filters section */
-        .filter-wrapper {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .btn-filter {
-            background-color: #f1f5f9;
-            border: 1px solid var(--border-color);
             color: var(--text-muted);
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-weight: 600;
+            font-weight: 500;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background-color: var(--text-dark);
+            color: #ffffff;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
             font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        /* Secció d'Incidències Meteorològiques */
+        .alert-box {
+            max-width: 1200px;
+            margin: 1.5rem auto 0 auto;
+            background-color: #fdf2f2;
+            border-left: 5px solid var(--tag-alert);
+            padding: 1.2rem;
+            border-radius: 4px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .alert-box h3 {
+            color: var(--tag-alert);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-box p {
+            font-size: 0.92rem;
+            color: #4b1a1a;
+        }
+
+        .alert-box ul {
+            margin-top: 0.5rem;
+            padding-left: 1.2rem;
+            font-size: 0.9rem;
+            color: #4b1a1a;
+        }
+
+        /* Filtres */
+        .filters-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background-color: #ffffff;
+            border: 1.5px solid #ddd;
+            color: var(--text-dark);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .btn-filter:hover {
-            background-color: #e2e8f0;
-            color: var(--text-dark);
-        }
-
-        .btn-filter.active {
-            background-color: var(--primary);
-            color: #ffffff;
+        .filter-btn:hover {
             border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(133, 33, 72, 0.25);
+            background-color: #fff8f8;
         }
 
-        /* Main Grid & Cards */
-        .main-container {
-            max-width: 1250px;
-            margin: 40px auto;
-            padding: 0 20px;
+        .filter-btn.active {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(227, 6, 19, 0.2);
         }
 
+        /* Graella d'esdeveniments */
         .events-grid {
+            max-width: 1200px;
+            margin: 0 auto 4rem auto;
+            padding: 0 1rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
         }
 
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
+        /* Targeta d'esdeveniment */
+        .event-card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eef0f2;
             display: flex;
             flex-direction: column;
-            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: #cbd5e1;
+        .event-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
         .card-header {
-            padding: 24px 24px 12px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 12px;
+            padding: 1.2rem 1.2rem 0.5rem 1.2rem;
+            position: relative;
         }
 
-        .category-badge {
+        .tag {
+            display: inline-block;
             font-size: 0.75rem;
-            font-weight: 700;
             text-transform: uppercase;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            letter-spacing: 0.05em;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            color: #ffffff;
+            margin-bottom: 0.8rem;
         }
 
-        /* Category Color Scheme */
-        .badge-musica { background-color: #fae8ff; color: #a21caf; }
-        .badge-teatro { background-color: #e0f2fe; color: #0369a1; }
-        .badge-cultura { background-color: #fef3c7; color: #b45309; }
-        .badge-deportes { background-color: #dcfce7; color: #15803d; }
+        .tag.musica { background-color: var(--tag-musica); }
+        .tag.teatre { background-color: var(--tag-teatre); }
+        .tag.cine { background-color: var(--tag-cine); }
+        .tag.cultura { background-color: var(--tag-cultura); }
+        .tag.esports { background-color: var(--tag-esports); }
+        .tag.alert { background-color: var(--tag-alert); }
 
-        .status-pill {
-            font-size: 0.75rem;
+        .event-title {
+            font-size: 1.2rem;
             font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 6px;
-            text-transform: uppercase;
+            color: var(--text-dark);
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
         }
-        .status-suspended { background-color: #ffe4e6; color: #e11d48; }
-        .status-postponed { background-color: #ffedd5; color: #ea580c; }
 
         .card-body {
-            padding: 0 24px 20px 24px;
+            padding: 0 1.2rem 1.2rem 1.2rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
-        .event-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 12px;
-            line-height: 1.35;
+        .event-meta {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
         }
 
-        .event-meta-info {
-            background-color: #f8fafc;
-            border-radius: 12px;
-            padding: 12px 16px;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-            color: #475569;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .meta-row {
+        .meta-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.4rem;
+            margin-bottom: 0.3rem;
         }
 
-        .meta-icon {
-            flex-shrink: 0;
-            width: 16px;
-            height: 16px;
-            opacity: 0.7;
+        .meta-item strong {
+            color: #495057;
         }
 
-        .event-description {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
+        .event-desc {
+            font-size: 0.9rem;
+            color: #495057;
+            margin-bottom: 1.2rem;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
-            flex-grow: 1;
         }
 
         .card-footer {
-            padding: 16px 24px;
-            border-top: 1px solid #f1f5f9;
-            background-color: #fcfdfe;
+            padding: 1rem 1.2rem;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 0.8rem;
         }
 
         .source-link {
-            font-size: 0.8rem;
-            color: var(--secondary);
+            color: var(--primary);
             text-decoration: none;
             font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            transition: color 0.2s;
         }
 
         .source-link:hover {
-            color: var(--primary);
+            text-decoration: underline;
         }
 
-        .price-tag {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--text-dark);
+        /* Estats especials (Suspès, Ajornat, etc.) */
+        .event-card.suspended {
+            border: 1.5px solid #ffc107;
+            opacity: 0.85;
+        }
+        .event-card.suspended .event-title {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+        .badge-status {
+            display: inline-block;
+            background-color: #ffc107;
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            margin-left: 0.5rem;
+        }
+        .badge-status.cancel {
+            background-color: var(--tag-alert);
+            color: #fff;
         }
 
-        .hidden {
-            display: none !important;
-        }
-
-        /* Empty State */
-        .empty-state {
+        footer {
+            background-color: #212529;
+            color: #ffffff;
             text-align: center;
-            padding: 60px 20px;
-            background-color: var(--card-bg);
-            border-radius: 20px;
-            border: 1px dashed var(--border-color);
-            grid-column: 1 / -1;
+            padding: 2rem 1rem;
+            font-size: 0.9rem;
         }
 
-        .empty-state h3 {
-            font-size: 1.5rem;
-            color: var(--text-dark);
-            margin-bottom: 10px;
+        footer a {
+            color: #ffffff;
+            text-decoration: underline;
         }
 
-        /* Responsiveness */
         @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .events-grid {
-                grid-template-columns: 1fr;
+            header {
+                padding: 1.5rem 1rem;
+            }
+            .logo-area h1 {
+                font-size: 1.7rem;
+            }
+            .filters-container {
+                gap: 0.3rem;
+            }
+            .filter-btn {
+                padding: 0.4rem 0.9rem;
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Alert banner about the heavy storm affecting scheduled events -->
-    <div class="alert-banner">
-        ⚠️ <strong>Atenció:</strong> S'ha activat el Pla d'emergència municipal per pluges intenses. Alguns esdeveniments han sigut suspesos o ajornats.
-    </div>
-
     <header>
         <div class="header-container">
-            <h1>Agenda de Terrassa</h1>
-            <p class="subtitle">Descobreix totes les activitats culturals, musicals i esportives a la ciutat</p>
-            
-            <div class="meta-date">
-                <span class="indicator"></span>
-                Avui és 04/10/2026
+            <div class="logo-area">
+                <h1>Agenda Cultural, Cine i Oci</h1>
+                <p>La teva guia unificada d'esdeveniments a Terrassa</p>
             </div>
+            <span class="date-badge">Diumenge, 04 d'octubre de 2026</span>
+        </div>
 
-            <div class="filter-wrapper">
-                <button class="btn-filter active" onclick="filterCategory('all', this)">Tots</button>
-                <button class="btn-filter" onclick="filterCategory('musica-jazz', this)">Música/Jazz</button>
-                <button class="btn-filter" onclick="filterCategory('teatro-danza', this)">Teatre/Danza</button>
-                <button class="btn-filter" onclick="filterCategory('cultura', this)">Cultura</button>
-                <button class="btn-filter" onclick="filterCategory('deportes', this)">Deportes</button>
-            </div>
+        <!-- Alerta pel temporal de pluges -->
+        <div class="alert-box">
+            <h3>⚠️ AVÍS METEOROLÒGIC I AFECTACIONS (ÚLTIMA HORA)</h3>
+            <p>Terrassa ha acumulat prop de <strong>100 litres per m² (97,6 mm)</strong> durant aquesta matinada. S'ha activat el Pla d'Emergència Municipal. Tot i no lamentar danys personals, la tempesta ha provocat talls a les carreteres i la <strong>suspensió de diverses activitats a l'aire lliure avui diumenge 4 d'octubre</strong>:</p>
+            <ul>
+                <li>❌ <strong>Cursa Fanny Sallés (La Cursa de les Dones)</strong> - SUSPESA.</li>
+                <li>❌ <strong>Fira del Dibuix</strong> - SUSPESA.</li>
+                <li>⚽ <strong>Terrassa FC contra Girona B</strong> - AJORNAT per decisió de la RFEF.</li>
+                <li>🏛️ <strong>Museu de Terrassa</strong> - Tots els equipaments (Casa Alegre de Sagrera, Castell Cartoixa, etc.) romandran TANCATS avui per motius de seguretat.</li>
+            </ul>
         </div>
     </header>
 
-    <main class="main-container">
-        <div class="events-grid" id="eventsGrid">
+    <!-- Botons de Filtre -->
+    <div class="filters-container">
+        <button class="filter-btn active" data-filter="all">Tots</button>
+        <button class="filter-btn" data-filter="musica">Música / Jazz</button>
+        <button class="filter-btn" data-filter="teatre">Teatre / Dansa</button>
+        <button class="filter-btn" data-filter="cine">Cine</button>
+        <button class="filter-btn" data-filter="cultura">Cultura / Patrimoni</button>
+        <button class="filter-btn" data-filter="esports">Esports / Oci</button>
+    </div>
 
-            <!-- EVENT 1: Cursa Fanny Sallés (Suspended) -->
-            <div class="card" data-category="deportes">
-                <div class="card-header">
-                    <span class="category-badge badge-deportes">Deportes</span>
-                    <span class="status-pill status-suspended">Suspesa</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">XII Cursa Fanny Sallés – La Cursa de les Dones</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Diumenge, 4 d'octubre de 2026</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Carrers de Terrassa</span>
-                        </div>
-                    </div>
-                    <p class="event-description">La dotzena edició de la cursa de les dones amb uns 2.500 inscrits s'ha hagut de suspendre degut a l'alerta per temporal de pluja a la ciutat.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://monterrassa.cat" class="source-link" target="_blank">Món Terrassa ↗</a>
-                    <span class="price-tag">Inscripció</span>
-                </div>
+    <!-- Graella d'Esdeveniments -->
+    <main class="events-grid" id="events-container">
+
+        <!-- EVENT 1: Tribut a Dire Straits -->
+        <article class="event-card" data-category="musica">
+            <div class="card-header">
+                <span class="tag musica">Música / Jazz</span>
+                <h2 class="event-title">Tribut a Dire Straits - Sultans of Swing</h2>
             </div>
-
-            <!-- EVENT 2: Terrassa FC vs Girona B (Postponed) -->
-            <div class="card" data-category="deportes">
-                <div class="card-header">
-                    <span class="category-badge badge-deportes">Deportes</span>
-                    <span class="status-pill status-postponed">Ajornat</span>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Avui, 4 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>18:00 h</strong></div>
+                    <div class="meta-item">📍 <strong>LaFact Cultural de Terrassa</strong></div>
                 </div>
-                <div class="card-body">
-                    <h2 class="event-title">Terrassa FC – Girona B</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Diumenge, 4 d'octubre de 2026 - 18:00h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Estadi Olímpic de Terrassa</span>
-                        </div>
-                    </div>
-                    <p class="event-description">La RFEF ha ajornat el partit de lliga corresponent a la cinquena jornada del Grup 2 de la Segona Federació per precaució davant el temporal.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://monterrassa.cat" class="source-link" target="_blank">Món Terrassa ↗</a>
-                    <span class="price-tag">Ajornat</span>
-                </div>
+                <p class="event-desc">Sultans of Swing Plays Dire Straits és un projecte d'altíssim nivell liderat per Miguel Talavera (veu i guitarra). Un viatge irrepetible pels grans èxits de la mítica banda britànica.</p>
             </div>
-
-            <!-- EVENT 3: Tribut a Dire Straits -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Tribut a Dire Straits</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Diumenge, 4 d'octubre de 2026 - 18:00h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Gran concert d'homenatge repassant els millors èxits de la mítica banda Dire Straits.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Comprar Entrada</span>
-                </div>
+            <div class="card-footer">
+                <span>Font: LaFact Cultural / Turisme</span>
+                <a href="https://www.lafactcultural.cat" class="source-link" target="_blank">Entrades</a>
             </div>
+        </article>
 
-            <!-- EVENT 4: T-Crime -->
-            <div class="card" data-category="cultura">
-                <div class="card-header">
-                    <span class="category-badge badge-cultura">Cultura</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">T-Crime: Joc de pistes de detectius</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Dimecres, 7 d'octubre de 2026</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Plaça Vella, Terrassa</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Un interactiu joc de pistes participatiu i ambientat a la ciutat de Terrassa on els ciutadans poden col·laborar per resoldre un crim misteriós.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://monterrassa.cat" class="source-link" target="_blank">Món Terrassa ↗</a>
-                    <span class="price-tag">Participatiu</span>
-                </div>
+        <!-- EVENT 2: Mac, Mec, Mic (Avui) -->
+        <article class="event-card" data-category="teatre">
+            <div class="card-header">
+                <span class="tag teatre">Teatre / Dansa</span>
+                <h2 class="event-title">Mac, Mec, Mic (Familiar)</h2>
             </div>
-
-            <!-- EVENT 5: Ball Social de Lindy Hop -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Avui, 4 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>10:00 h i 12:00 h</strong></div>
+                    <div class="meta-item">📍 <strong>Teatre Alegria</strong></div>
                 </div>
-                <div class="card-body">
-                    <h2 class="event-title">Ball Social de Lindy Hop</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Dimecres, 7 d'octubre de 2026 - 21:00h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Espai Nova Jazz Cava</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Sessió de ball social obert a tothom per gaudir del ritme lindy hop i swing en el millor ambient.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://jazzterrassa.org" class="source-link" target="_blank">JazzTerrassa ↗</a>
-                    <span class="price-tag">Accés Lliure</span>
-                </div>
+                <p class="event-desc">Espectacle familiar molt aclamat de Laia Gimó i Manel Trias. Diversió i titelles en català per als més menuts del municipi.</p>
             </div>
-
-            <!-- EVENT 6: Alba Ruiz Quartet + Jam Session -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Alba Ruiz Quartet + Jam Session</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Dijous, 8 d'octubre de 2026 - 21:30h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Espai Nova Jazz Cava</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Inauguració de les Jam Sessions de Temporada Estable 26-27 amb la magnífica actuació de l'Alba Ruiz Quartet.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://jazzterrassa.org" class="source-link" target="_blank">JazzTerrassa ↗</a>
-                    <span class="price-tag">6,00 €</span>
-                </div>
+            <div class="card-footer">
+                <span>Font: Terrassa Arts Escèniques</span>
+                <a href="https://www.terrassaartsesceniques.cat" class="source-link" target="_blank">Entrades</a>
             </div>
+        </article>
 
-            <!-- EVENT 7: Swing Shot Band -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Swing Shot Band</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Divendres, 9 d'octubre de 2026 - 21:30h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Espai Nova Jazz Cava</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Una nit inoblidable a ritme de swing ballable amb l'actuació estelar de Swing Shot Band.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://jazzterrassa.org" class="source-link" target="_blank">JazzTerrassa ↗</a>
-                    <span class="price-tag">18,00 €</span>
-                </div>
+        <!-- EVENT 3: Joc de Tapes 2026 -->
+        <article class="event-card" data-category="esports">
+            <div class="card-header">
+                <span class="tag esports">Esports / Oci</span>
+                <h2 class="event-title">Ruta Gastronòmica "Joc de Tapes"</h2>
             </div>
-
-            <!-- EVENT 8: Ángel Martín (Monòleg) -->
-            <div class="card" data-category="teatro-danza">
-                <div class="card-header">
-                    <span class="category-badge badge-teatro">Teatre/Danza</span>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>De l'18 de setembre al 18 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Diversos restaurants de Terrassa</strong></div>
                 </div>
-                <div class="card-body">
-                    <h2 class="event-title">Ángel Martín (2026)</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>9 d'octubre (21h) & 10 d'octubre (20h) 2026</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Monòleg d'humor intel·ligent i punyent a càrrec de l'aclamat còmic Ángel Martín.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Comprar</span>
-                </div>
+                <p class="event-desc">Una iniciativa de qualitat impulsada pel Gremi Empresarial d’Hostaleria de Terrassa i comarca. Tapes creatives a preus populars.</p>
             </div>
-
-            <!-- EVENT 9: Anna Bananahanack -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Anna Bananahanack - "From Etta To Lizzo"</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Dissabte, 10 d'octubre de 2026 - 21:30h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Espai Nova Jazz Cava</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Un increïble viatge musical que va des dels clàssics de Etta James fins al modern pop/soul de Lizzo.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://jazzterrassa.org" class="source-link" target="_blank">JazzTerrassa ↗</a>
-                    <span class="price-tag">18,00 €</span>
-                </div>
+            <div class="card-footer">
+                <span>Font: Turisme Terrassa</span>
+                <a href="https://www.visitaterrassa.cat" class="source-link" target="_blank">Saber més</a>
             </div>
+        </article>
 
-            <!-- EVENT 10: El gran show del Rey León -->
-            <div class="card" data-category="teatro-danza">
-                <div class="card-header">
-                    <span class="category-badge badge-teatro">Teatre/Danza</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">El gran show del Rey León</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Diumenge, 11 d'octubre de 2026 - 12:30h i 18:00h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Espectacle musical familiar inspirat en la història clàssica del Rei Lleó, ple de màgia i cançons reconegudes.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Familiar</span>
-                </div>
+        <!-- EVENT 4: Pel·lícula Cinema Catalunya -->
+        <article class="event-card" data-category="cine">
+            <div class="card-header">
+                <span class="tag cine">Cine</span>
+                <h2 class="event-title">Digger &amp; La bola negra</h2>
             </div>
-
-            <!-- EVENT 11: Lindy Hop Social 2 -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Del 2 al 8 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Cinema Catalunya</strong></div>
                 </div>
-                <div class="card-body">
-                    <h2 class="event-title">Ball Social de Lindy Hop</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Dimecres, 14 d'octubre de 2026 - 21:00h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Espai Nova Jazz Cava</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Sessió setmanal de ball lindy hop per a amants de la música swing i jazz tradicional.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://jazzterrassa.org" class="source-link" target="_blank">JazzTerrassa ↗</a>
-                    <span class="price-tag">Accés Lliure</span>
-                </div>
+                <p class="event-desc">Setmana de gran cartellera a les sales històriques de Terrassa amb joies del cinema d'autor europeu i propostes imperdibles.</p>
             </div>
-
-            <!-- EVENT 12: Pol Xabier Ballarín -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Pol Xabier Ballarín + Jam Session</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Dijous, 15 d'octubre de 2026 - 21:30h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Espai Nova Jazz Cava</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Concert íntim i posterior jam session guiada pel talentós músic Pol Xabier Ballarín.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://jazzterrassa.org" class="source-link" target="_blank">JazzTerrassa ↗</a>
-                    <span class="price-tag">6,00 €</span>
-                </div>
+            <div class="card-footer">
+                <span>Font: Cinema Catalunya</span>
+                <a href="https://www.cinemacatalunya.cat" class="source-link" target="_blank">Cartellera</a>
             </div>
+        </article>
 
-            <!-- EVENT 13: Andrew-A & The Wild Cats -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Andrew-A & The Wild Cats</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Divendres, 16 d'octubre de 2026 - 21:30h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Espai Nova Jazz Cava</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Una enèrgica vetllada de ritmes potents de jazz i blues amb la formació de Wild Cats.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://jazzterrassa.org" class="source-link" target="_blank">JazzTerrassa ↗</a>
-                    <span class="price-tag">15,00 €</span>
-                </div>
+        <!-- EVENT 5: Ball de Lindy Hop -->
+        <article class="event-card" data-category="musica">
+            <div class="card-header">
+                <span class="tag musica">Música / Jazz</span>
+                <h2 class="event-title">Ball Social de Lindy Hop</h2>
             </div>
-
-            <!-- EVENT 14: Dancing Beethoven -->
-            <div class="card" data-category="teatro-danza">
-                <div class="card-header">
-                    <span class="category-badge badge-teatro">Teatre/Danza</span>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Dimecres, 7 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>21:00 h</strong></div>
+                    <div class="meta-item">📍 <strong>Nova Jazz Cava</strong></div>
                 </div>
-                <div class="card-body">
-                    <h2 class="event-title">Dancing Beethoven (2026)</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Dissabte, 17 d'octubre de 2026 - 20:00h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Espectacle de la 43a Temporada BBVA de Dansa que fusiona de manera magistral moviment i les simfonies clàssiques.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Dansa</span>
-                </div>
+                <p class="event-desc">Surt a moure't i gaudeix de les nits de Lindy Hop i bona música swing en el local de referència del ritme vallesà.</p>
             </div>
-
-            <!-- EVENT 15: Concert Centenari de John Coltrane -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Concert Centenari de John Coltrane</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Dissabte, 17 d'octubre de 2026 - 21:30h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Espai Nova Jazz Cava</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Cicle Centenari Coltrane! Un especial homenatge amb el concert commemoratiu de la llegenda del jazz saxofonista John Coltrane.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://jazzterrassa.org" class="source-link" target="_blank">JazzTerrassa ↗</a>
-                    <span class="price-tag">18,00 €</span>
-                </div>
+            <div class="card-footer">
+                <span>Font: JazzTerrassa</span>
+                <a href="https://www.jazzterrassa.org" class="source-link" target="_blank">Web Oficial</a>
             </div>
+        </article>
 
-            <!-- EVENT 16: Pensionistas -->
-            <div class="card" data-category="teatro-danza">
-                <div class="card-header">
-                    <span class="category-badge badge-teatro">Teatre/Danza</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Pensionistas</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Diumenge, 18 d'octubre de 2026 - 18:00h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Obra de teatre còmica i reflexiva que aborda la realitat social des de la perspectiva de la vellesa.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Teatre</span>
-                </div>
+        <!-- EVENT 6: T-Crime -->
+        <article class="event-card" data-category="esports">
+            <div class="card-header">
+                <span class="tag esports">Esports / Oci</span>
+                <h2 class="event-title">T-Crime: Joc de Detectius participatiu</h2>
             </div>
-
-            <!-- EVENT 17: La Fuga - Concert Homenatge -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Dimecres, 7 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Plaça Vella, Terrassa</strong></div>
                 </div>
-                <div class="card-body">
-                    <h2 class="event-title">La Fuga, concert d'homenatge a Toni Puig Ponsa</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Diumenge, 18 d'octubre de 2026 - 19:30h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>Espai Nova Jazz Cava</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Concert especial dedicat a la memòria de Toni Puig Ponsa amb l'actuació de diversos col·laboradors i amics.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://jazzterrassa.org" class="source-link" target="_blank">JazzTerrassa ↗</a>
-                    <span class="price-tag">12,00 €</span>
-                </div>
+                <p class="event-desc">Fes-te el detectiu més agut! Resol el misteri interactiu que tindrà lloc pels emblemàtics carrers del centre de Terrassa.</p>
             </div>
-
-            <!-- EVENT 18: Tribut a Sabina -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Tribut a Sabina</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Divendres, 23 d'octubre de 2026 - 21:00h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Un concert completament dedicat a la poesia urbana i a les cançons inoblidables del mestre Joaquín Sabina.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Música</span>
-                </div>
+            <div class="card-footer">
+                <span>Font: Món Terrassa</span>
+                <a href="https://www.monterrassa.cat" class="source-link" target="_blank">Info</a>
             </div>
+        </article>
 
-            <!-- EVENT 19: Fórmula V -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Fórmula V en concert</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Dissabte, 24 d'octubre de 2026 - 20:00h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Reviu els grans èxits dels anys 70 amb el mític grup pop espanyol Fórmula V en directe.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Música</span>
-                </div>
+        <!-- EVENT 7: Alba Ruiz Quartet -->
+        <article class="event-card" data-category="musica">
+            <div class="card-header">
+                <span class="tag musica">Música / Jazz</span>
+                <h2 class="event-title">Inauguració de les Jam Sessions: Alba Ruiz Quartet</h2>
             </div>
-
-            <!-- EVENT 20: Yo sólo quiero irme a Francia -->
-            <div class="card" data-category="teatro-danza">
-                <div class="card-header">
-                    <span class="category-badge badge-teatro">Teatre/Danza</span>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Dijous, 8 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>21:30 h</strong></div>
+                    <div class="meta-item">📍 <strong>Nova Jazz Cava</strong> | Preu: 6,00 €</div>
                 </div>
-                <div class="card-body">
-                    <h2 class="event-title">Yo sólo quiero irme a Francia</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Diumenge, 25 d'octubre de 2026 - 18:00h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Estrena teatral repleta de dramatúrgia contemporània i humor mordaç sobre la migració i les aspiracions de futur.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Teatre</span>
-                </div>
+                <p class="event-desc">Donem el tret de sortida oficial a la Temporada Estable 26/27 de Jazz amb una magnífica nit de jam session.</p>
             </div>
-
-            <!-- EVENT 21: Joan Pera - L'Auca del Senyor Pera -->
-            <div class="card" data-category="teatro-danza">
-                <div class="card-header">
-                    <span class="category-badge badge-teatro">Teatre/Danza</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">Joan Pera, L'Auca del Senyor Pera</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Dissabte, 31 d'octubre de 2026 - 20:30h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural</span>
-                        </div>
-                    </div>
-                    <p class="event-description">El reconegut actor Joan Pera arriba per fer riure a tot el públic amb el seu últim espectacle teatral de comèdia costumista.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Teatre</span>
-                </div>
+            <div class="card-footer">
+                <span>Font: JazzTerrassa</span>
+                <a href="https://www.jazzterrassa.org" class="source-link" target="_blank">Tickets</a>
             </div>
+        </article>
 
-            <!-- EVENT 22: Exposició d'August Puig - Eugeni Forcano -->
-            <div class="card" data-category="cultura">
-                <div class="card-header">
-                    <span class="category-badge badge-cultura">Cultura</span>
-                </div>
-                <div class="card-body">
-                    <h2 class="event-title">August Puig - Eugeni Forcano</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>A partir de dijous, 12 de novembre de 2026</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural - Sala d'Exposicions</span>
-                        </div>
-                    </div>
-                    <p class="event-description">Mostra artística que reuneix el llegat abstracte d'August Puig i la mirada fotogràfica única d'Eugeni Forcano.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Gratuït</span>
-                </div>
+        <!-- EVENT 8: Monòleg Ángel Martín -->
+        <article class="event-card" data-category="teatre">
+            <div class="card-header">
+                <span class="tag teatre">Teatre / Dansa</span>
+                <h2 class="event-title">Ángel Martín - "Punto para los locos"</h2>
             </div>
-
-            <!-- EVENT 23: Ara Malikian -->
-            <div class="card" data-category="musica-jazz">
-                <div class="card-header">
-                    <span class="category-badge badge-musica">Música/Jazz</span>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>9 i 10 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>Dv. 21:00h / Ds. 20:00h</strong></div>
+                    <div class="meta-item">📍 <strong>LaFact Cultural de Terrassa</strong></div>
                 </div>
-                <div class="card-body">
-                    <h2 class="event-title">Ara Malikian en concert</h2>
-                    <div class="event-meta-info">
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>Divendres, 13 de novembre de 2026 - 18h i 21h</span>
-                        </div>
-                        <div class="meta-row">
-                            <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span>LaFact Cultural</span>
-                        </div>
-                    </div>
-                    <p class="event-description">El virtuós violinista torna a Terrassa amb un potent directe ple de fusió, passió i energia desbordant.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="https://lafactcultural.cat" class="source-link" target="_blank">LaFact Cultural ↗</a>
-                    <span class="price-tag">Proximament</span>
-                </div>
+                <p class="event-desc">L'humorista i escriptor ens acosta el seu mètode particular d'abordar la salut mental des d'una vessant divertida i compromesa.</p>
             </div>
+            <div class="card-footer">
+                <span>Font: LaFact Cultural</span>
+                <a href="https://www.lafactcultural.cat" class="source-link" target="_blank">Entrades</a>
+            </div>
+        </article>
 
-        </div>
+        <!-- EVENT 9: Swing Shot Band -->
+        <article class="event-card" data-category="musica">
+            <div class="card-header">
+                <span class="tag musica">Música / Jazz</span>
+                <h2 class="event-title">Swing Shot Band - Swing Ballable</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Divendres, 9 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>21:30 h</strong></div>
+                    <div class="meta-item">📍 <strong>Nova Jazz Cava</strong> | Preu: 18,00 €</div>
+                </div>
+                <p class="event-desc">Ritme trepidant i pura diversió ideal tant pels amants de la ballada com pels oients que gaudeixen de la música d'època.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: JazzTerrassa</span>
+                <a href="https://www.jazzterrassa.org" class="source-link" target="_blank">Tickets</a>
+            </div>
+        </article>
 
-        <!-- Empty state element inside the grid -->
-        <div id="emptyState" class="empty-state hidden">
-            <h3>No s'han trobat esdeveniments</h3>
-            <p>Prova de seleccionar una altra categoria o torna-ho a intentar més tard.</p>
-        </div>
+        <!-- EVENT 10: Evadirse -->
+        <article class="event-card" data-category="musica">
+            <div class="card-header">
+                <span class="tag musica">Música / Jazz</span>
+                <h2 class="event-title">Concert: EVADIRSE</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Dissabte, 10 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Sala Rasa 64</strong></div>
+                </div>
+                <p class="event-desc">Un dels directes més potents de la nova generació d'artistes que sacsejarà la mítica sala d'oci nocturn de la Rasa.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: Sala Rasa 64</span>
+                <a href="https://www.rasa64.com" class="source-link" target="_blank">Entrades</a>
+            </div>
+        </article>
+
+        <!-- EVENT 11: Anna Bananahanack -->
+        <article class="event-card" data-category="musica">
+            <div class="card-header">
+                <span class="tag musica">Música / Jazz</span>
+                <h2 class="event-title">Anna Bananahanack: "From Etta To Lizzo"</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Dissabte, 10 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>21:30 h</strong></div>
+                    <div class="meta-item">📍 <strong>Nova Jazz Cava</strong> | Preu: 18,00 €</div>
+                </div>
+                <p class="event-desc">Un show vocal brillant que repassa des del soul clàssic de la gran Etta James fins als èxits pop contemporanis de Lizzo.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: JazzTerrassa</span>
+                <a href="https://www.jazzterrassa.org" class="source-link" target="_blank">Tickets</a>
+            </div>
+        </article>
+
+        <!-- EVENT 12: Doraemon -->
+        <article class="event-card" data-category="cine">
+            <div class="card-header">
+                <span class="tag cine">Cine</span>
+                <h2 class="event-title">Doraemon, aventures al món de l’art</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Dissabte, 10 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Cinema Catalunya</strong></div>
+                </div>
+                <p class="event-desc">Arriba la nova aventura de Doraemon, Nobita i els seus amics en exclusiva per a una gran matinal de cinema familiar.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: Cinema Catalunya</span>
+                <a href="https://www.cinemacatalunya.cat" class="source-link" target="_blank">Més info</a>
+            </div>
+        </article>
+
+        <!-- EVENT 13: El Rey León -->
+        <article class="event-card" data-category="teatre">
+            <div class="card-header">
+                <span class="tag teatre">Teatre / Dansa</span>
+                <h2 class="event-title">El Gran Show de El Rey León</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Diumenge, 11 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>12:30 h i 18:00 h</strong></div>
+                    <div class="meta-item">📍 <strong>LaFact Cultural de Terrassa</strong></div>
+                </div>
+                <p class="event-desc">Arriba un dels espectacles familiars i musicals més esperats de l'any. Història inspirada en les sabanes africanes amb excel·lents veus.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: LaFact Cultural</span>
+                <a href="https://www.lafactcultural.cat" class="source-link" target="_blank">Tickets</a>
+            </div>
+        </article>
+
+        <!-- EVENT 14: Il Volo -->
+        <article class="event-card" data-category="cine">
+            <div class="card-header">
+                <span class="tag cine">Cine</span>
+                <h2 class="event-title">Projecció Musical: Il Volo</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Dimecres, 14 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Cinema Catalunya</strong></div>
+                </div>
+                <p class="event-desc">Concert especial transmès a la gran pantalla per a gaudir de la immensitat vocal d'aquest distingit trio crossover d'òpera i pop.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: Cinema Catalunya</span>
+                <a href="https://www.cinemacatalunya.cat" class="source-link" target="_blank">Més info</a>
+            </div>
+        </article>
+
+        <!-- EVENT 15: Operetta -->
+        <article class="event-card" data-category="teatre">
+            <div class="card-header">
+                <span class="tag teatre">Teatre / Dansa</span>
+                <h2 class="event-title">Operetta</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Dijous, 15 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>18:00 h</strong></div>
+                    <div class="meta-item">📍 <strong>Teatre Principal</strong></div>
+                </div>
+                <p class="event-desc">Espectacle d'arts escèniques que combina veus, òpera i gran expressivitat teatral. Perfecte per a tots els públics.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: Terrassa Arts Escèniques</span>
+                <a href="https://www.terrassaartsesceniques.cat" class="source-link" target="_blank">Tickets</a>
+            </div>
+        </article>
+
+        <!-- EVENT 16: Samsam Festival -->
+        <article class="event-card" data-category="musica">
+            <div class="card-header">
+                <span class="tag musica">Música / Jazz</span>
+                <h2 class="event-title">Samsam Festival (Amparanoia, El niño de la Hipoteca...)</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Divendres, 16 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Sala Rasa 64</strong></div>
+                </div>
+                <p class="event-desc">Una gran celebració solidària i musical. Amparanoia, Sandra Bautista i El Niño de la Hipoteca lideren aquest magnífic festival.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: Rasa 64</span>
+                <a href="https://www.rasa64.com" class="source-link" target="_blank">Tickets</a>
+            </div>
+        </article>
+
+        <!-- EVENT 17: Dancing Beethoven -->
+        <article class="event-card" data-category="teatre">
+            <div class="card-header">
+                <span class="tag teatre">Teatre / Dansa</span>
+                <h2 class="event-title">Dancing Beethoven (2026)</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Dissabte, 17 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>20:00 h</strong></div>
+                    <div class="meta-item">📍 <strong>LaFact Cultural de Terrassa</strong></div>
+                </div>
+                <p class="event-desc">Inauguració d'alt nivell de la 43a Temporada BBVA de Dansa. Un llançament visual basat en la impressionant novena simfonia.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: LaFact Cultural</span>
+                <a href="https://www.lafactcultural.cat" class="source-link" target="_blank">Tickets</a>
+            </div>
+        </article>
+
+        <!-- EVENT 18: Balkan Paradise Orchestra -->
+        <article class="event-card" data-category="musica">
+            <div class="card-header">
+                <span class="tag musica">Música / Jazz</span>
+                <h2 class="event-title">Balkan Paradise Orchestra</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Dissabte, 17 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Sala Rasa 64</strong> | Directes Estrella Damm 150</div>
+                </div>
+                <p class="event-desc">Sons balcànics barrejats amb una potent secció de vents en una de les propostes festives més contundents de Catalunya.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: Sala Rasa 64</span>
+                <a href="https://www.rasa64.com" class="source-link" target="_blank">Entrades</a>
+            </div>
+        </article>
+
+        <!-- EVENT 19: Pensionistas -->
+        <article class="event-card" data-category="teatre">
+            <div class="card-header">
+                <span class="tag teatre">Teatre / Dansa</span>
+                <h2 class="event-title">Pensionistas (Teatre)</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Diumenge, 18 d'octubre de 2026</strong></div>
+                    <div class="meta-item">🕒 <strong>18:00 h</strong></div>
+                    <div class="meta-item">📍 <strong>LaFact Cultural de Terrassa</strong></div>
+                </div>
+                <p class="event-desc">Comèdia teatral propera i àcida que analitza la vellesa activa i les peculiaritats dels pensionistes d'avui en dia.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: LaFact Cultural</span>
+                <a href="https://www.lafactcultural.cat" class="source-link" target="_blank">Tickets</a>
+            </div>
+        </article>
+
+        <!-- EVENT 20: Exposició Estrats (Irene Pe) -->
+        <article class="event-card" data-category="cultura">
+            <div class="card-header">
+                <span class="tag cultura">Cultura / Patrimoni</span>
+                <h2 class="event-title">Estrats. Els relats que guarden els cossos</h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Oberta fins al 25 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Sala Muncunill</strong> | Entrada Gratuïta</div>
+                </div>
+                <p class="event-desc">Magnífica exposició multidisciplinar a càrrec de l'artista Irene Pe. Un estudi plàstic sobre l'empremta del temps en el cos.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: Terrassa Cultura</span>
+                <a href="https://www.terrassa.cat/cultura" class="source-link" target="_blank">Info</a>
+            </div>
+        </article>
+
+        <!-- === AFECTATS PEL METEO / AJORNATS / SUSPESOS (Es mostren amb avisos visuals clarificadors) === -->
+
+        <!-- EVENT 21: Cursa Fanny Salles (SUSPESA) -->
+        <article class="event-card suspended" data-category="esports">
+            <div class="card-header">
+                <span class="tag alert">⚠️ SUSPÈS TEMPORAL</span>
+                <h2 class="event-title">12ª Cursa Fanny Sallés (Dones) <span class="badge-status cancel">SUSPÈS</span></h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Diumenge, 4 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Carrers de Terrassa</strong></div>
+                </div>
+                <p class="event-desc">L'organització i Protecció Civil s'han vist obligades a suspendre la cursa per l'alerta de temporal i les intenses pluges viscudes durant la nit.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: Món Terrassa / AE Mitja Marató</span>
+                <a href="#" class="source-link">Més detalls</a>
+            </div>
+        </article>
+
+        <!-- EVENT 22: Fira del Dibuix (SUSPESA) -->
+        <article class="event-card suspended" data-category="cultura">
+            <div class="card-header">
+                <span class="tag alert">⚠️ SUSPÈS TEMPORAL</span>
+                <h2 class="event-title">Fira del Dibuix de Terrassa <span class="badge-status cancel">SUSPÈS</span></h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Diumenge, 4 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Plaça Vella</strong></div>
+                </div>
+                <p class="event-desc">L'edició d'enguany ha estat cancel·lada preventivament per tal de preservar la integritat dels artistes i obres davant la situació meteorològica.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: Ajuntament de Terrassa</span>
+                <a href="#" class="source-link">Detalls</a>
+            </div>
+        </article>
+
+        <!-- EVENT 23: Terrassa FC - Girona B (AJORNAT) -->
+        <article class="event-card suspended" data-category="esports">
+            <div class="card-header">
+                <span class="tag alert">⚽ AJORNAT</span>
+                <h2 class="event-title">Terrassa FC – Girona B <span class="badge-status">AJORNAT</span></h2>
+            </div>
+            <div class="card-body">
+                <div class="event-meta">
+                    <div class="meta-item">📅 <strong>Diumenge, 4 d'octubre de 2026</strong></div>
+                    <div class="meta-item">📍 <strong>Estadi Olímpic de Terrassa</strong></div>
+                </div>
+                <p class="event-desc">La RFEF ha oficialitzat l'ajornament del partit per raons climàtiques i risc extrem, malgrat que el club terrassenc desitjava buscar alternatives d'horari.</p>
+            </div>
+            <div class="card-footer">
+                <span>Font: Món Terrassa</span>
+                <a href="#" class="source-link">Llegir notícia</a>
+            </div>
+        </article>
+
     </main>
 
+    <footer>
+        <p>&copy; 2026 Agenda Cultural de Terrassa. Totes les dades han estat extretes d'emissores i fonts reals locals de la ciutat.</p>
+        <p>Editat amb orgull a Terrassa, Barcelona.</p>
+    </footer>
+
     <script>
-        function filterCategory(category, element) {
-            // Remove active class from all buttons
-            const buttons = document.querySelectorAll('.btn-filter');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            element.classList.add('active');
+        // Sistema de Filtració Dinàmica (JavaScript)
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const eventCards = document.querySelectorAll('.event-card');
 
-            // Get all cards
-            const cards = document.querySelectorAll('.card');
-            let visibleCount = 0;
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Canviar botó actiu
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
 
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
+                // Obtenir categoria a filtrar
+                const selectedCategory = button.getAttribute('data-filter');
+
+                // Mostrar o amagar targetes
+                eventCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (selectedCategory === 'all') {
+                        card.style.display = 'flex';
+                    } else if (cardCategory === selectedCategory) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
             });
-
-            // Handle empty state
-            const emptyState = document.getElementById('emptyState');
-            if (visibleCount === 0) {
-                emptyState.classList.remove('hidden');
-            } else {
-                emptyState.classList.add('hidden');
-            }
-        }
+        });
     </script>
 </body>
 </html>

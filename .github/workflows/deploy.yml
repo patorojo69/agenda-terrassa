@@ -1,38 +1,38 @@
-name: Actualizar Agenda de Terrassa
+name: Actualizar Agenda
 
 on:
+  push:
+    branches:
+      - main
   schedule:
-    # Se ejecuta todos los días a las 07:00 AM UTC
-    - cron: '0 7 * * *'
-  workflow_dispatch: # Permite ejecutar el proceso manualmente desde GitHub cuando quieras
-
-permissions:
-  contents: write
+    - cron: '0 6 * * *' # Se ejecuta automáticamente todos los días a las 6:00 AM
+  workflow_dispatch:     # Permite ejecutarlo manualmente desde el botón de GitHub Actions
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Descargar código del repositorio
+      - name: Checkout del código
         uses: actions/checkout@v4
 
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.10'
 
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install requests beautifulsoup4 python-dotenv google-genai
 
       - name: Ejecutar script de extracción
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python main.py
 
-      - name: Publicar cambios en GitHub Pages
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "🤖 Actualización automática de la Agenda de Terrassa"
-          file_pattern: "index.html eventos_30dias.json"
+      - name: Hacer commit y push del index.html actualizado
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update agenda HTML [skip ci]" && git push)

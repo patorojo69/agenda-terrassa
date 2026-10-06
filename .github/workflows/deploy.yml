@@ -31,8 +31,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python main.py
 
-      - name: Publicar cambios
+      - name: Publicar cambios en GitHub Pages
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "🤖 Actualización automática de la Agenda de Terrassa"
-          file_pattern: "index.html"
+          file_pattern: "index.html eventos_30dias.json"

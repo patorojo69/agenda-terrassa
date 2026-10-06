@@ -5,8 +5,11 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 6 * * *' # Se ejecuta automáticamente todos los días a las 6:00 AM
-  workflow_dispatch:     # Permite ejecutarlo manualmente desde el botón de GitHub Actions
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:

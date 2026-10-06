@@ -1,0 +1,362 @@
+[
+  {
+    "titulo": "Ball Social de Lindy Hop",
+    "categoria": "Música/Jazz",
+    "fecha": "07/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Sesión bailable de swing y lindy hop.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Alba Ruiz Quartet + Jam Session",
+    "categoria": "Música/Jazz",
+    "fecha": "08/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Inauguración de las Jam Sessions de la temporada estable con la saxofonista terrassense y su cuarteto.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Ángel Martín - Somos monos",
+    "categoria": "Teatro/Danza",
+    "fecha": "09/10/2026",
+    "lugar": "LaFACT Cultural, Terrassa",
+    "descripcion": "Nuevo espectáculo de monólogo y comedia de Ángel Martín.",
+    "fuente_nombre": "LaFact Cultural",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Swing Shot Band",
+    "categoria": "Música/Jazz",
+    "fecha": "09/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Concierto de swing bailable a cargo de una banda de referencia en el género.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Exposició: 'Temps, mite i transformació' de Jean Ohm",
+    "categoria": "Cultura/Patrimonio",
+    "fecha": "09/10/2026",
+    "lugar": "Sala Paüls, Terrassa",
+    "descripcion": "Inauguración de la exposición de pintura que reinterpreta mitos y símbolos desde una perspectiva contemporánea.",
+    "fuente_nombre": "Món Terrassa",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Concert: Evadirse",
+    "categoria": "Música/Jazz",
+    "fecha": "10/10/2026",
+    "lugar": "Sala Rasa 64, Terrassa",
+    "descripcion": "Concierto en directo del grupo Evadirse.",
+    "fuente_nombre": "Sala Rasa 64",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Anna Bananahanack 'From Etta To Lizzo'",
+    "categoria": "Música/Jazz",
+    "fecha": "10/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Espectáculo musical que recorre grandes voces femeninas desde Etta James hasta Lizzo.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Projecció: Doraemon, aventures al món de l’art",
+    "categoria": "Cine",
+    "fecha": "10/10/2026",
+    "lugar": "Cinema Catalunya, Terrassa",
+    "descripcion": "Proyección de la película de animación infantil de Doraemon.",
+    "fuente_nombre": "Cinema Catalunya",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "El gran show del Rey León",
+    "categoria": "Teatro/Danza",
+    "fecha": "11/10/2026",
+    "lugar": "LaFACT Cultural, Terrassa",
+    "descripcion": "Espectáculo musical familiar inspirado en la historia del Rey León.",
+    "fuente_nombre": "LaFact Cultural",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Ball Social de Lindy Hop",
+    "categoria": "Música/Jazz",
+    "fecha": "14/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Encuentro bailable de swing para la comunidad de lindy hop.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Projecció especial: Il Volo",
+    "categoria": "Cine",
+    "fecha": "14/10/2026",
+    "lugar": "Cinema Catalunya, Terrassa",
+    "descripcion": "Proyección cinematográfica especial del trío Il Volo.",
+    "fuente_nombre": "Cinema Catalunya",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Pol Chabier Ballarín + Jam Session",
+    "categoria": "Música/Jazz",
+    "fecha": "15/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Concierto de jazz liderado por Pol Chabier Ballarín seguido de sesión abierta de jam.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "SamSam Festival (Amparanoia, El niño de la Hipoteca, Sandra Bautista)",
+    "categoria": "Música/Jazz",
+    "fecha": "16/10/2026",
+    "lugar": "Sala Rasa 64, Terrassa",
+    "descripcion": "Festival musical con las actuaciones en directo de Amparanoia, El Niño de la Hipoteca y Sandra Bautista.",
+    "fuente_nombre": "Sala Rasa 64",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Andrew-A & The Wild Cats",
+    "categoria": "Música/Jazz",
+    "fecha": "16/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Concierto en directo de ritmo enérgico y jazz con Andrew-A & The Wild Cats.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Dancing Beethoven",
+    "categoria": "Teatro/Danza",
+    "fecha": "17/10/2026",
+    "lugar": "LaFACT Cultural, Terrassa",
+    "descripcion": "Producción de danza dentro de la 43ª Temporada BBVA de Dansa interpretando música de Beethoven.",
+    "fuente_nombre": "LaFact Cultural",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Balkan Paradise Orchestra",
+    "categoria": "Música/Jazz",
+    "fecha": "17/10/2026",
+    "lugar": "Sala Rasa 64, Terrassa",
+    "descripcion": "Concierto festivo de vientos y percusión balcánica con la Balkan Paradise Orchestra.",
+    "fuente_nombre": "Sala Rasa 64",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Avui ha vingut en John. Concert centenari de John Coltrane",
+    "categoria": "Música/Jazz",
+    "fecha": "17/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Concierto conmemorativo de homenaje por el centenario de la leyenda del jazz John Coltrane.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Pensionistas",
+    "categoria": "Teatro/Danza",
+    "fecha": "18/10/2026",
+    "lugar": "LaFACT Cultural, Terrassa",
+    "descripcion": "Obra teatral de comedia centrada en la vida de los jubilados.",
+    "fuente_nombre": "LaFact Cultural",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "La Fuga, concert d'homenatge a Toni Puig Ponsa",
+    "categoria": "Música/Jazz",
+    "fecha": "18/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Concierto extraordinario en memoria y homenaje de Toni Puig Ponsa.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Ball Social de Lindy Hop",
+    "categoria": "Música/Jazz",
+    "fecha": "21/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Velada de baile social al ritmo de música swing.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Curts Terror i Fantasia (12h.-Filmets)",
+    "categoria": "Cine",
+    "fecha": "22/10/2026",
+    "lugar": "Cinema Catalunya, Terrassa",
+    "descripcion": "Sesión especial de cortometrajes de terror y género fantástico.",
+    "fuente_nombre": "Cinema Catalunya",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Parallel 40 + Jam Session",
+    "categoria": "Música/Jazz",
+    "fecha": "22/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Actuación del conjunto Parallel 40 y sesión de improvisación abierta.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Tribut a Sabina",
+    "categoria": "Música/Jazz",
+    "fecha": "23/10/2026",
+    "lugar": "LaFACT Cultural, Terrassa",
+    "descripcion": "Concierto tributo repasando las canciones más emblemáticas de Joaquín Sabina.",
+    "fuente_nombre": "LaFact Cultural",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Hotel Cochambre",
+    "categoria": "Música/Jazz",
+    "fecha": "23/10/2026",
+    "lugar": "Sala Rasa 64, Terrassa",
+    "descripcion": "Concierto de versiones y espectáculo cómico-musical de Hotel Cochambre.",
+    "fuente_nombre": "Sala Rasa 64",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Saúl Andreu Quartet 'Soulful Traveler'",
+    "categoria": "Música/Jazz",
+    "fecha": "23/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Presentación del proyecto de jazz 'Soulful Traveler' a cargo de Saúl Andreu Quartet.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Fórmula V",
+    "categoria": "Música/Jazz",
+    "fecha": "24/10/2026",
+    "lugar": "LaFACT Cultural, Terrassa",
+    "descripcion": "Concierto en directo del mítico grupo pop Fórmula V con sus grandes éxitos.",
+    "fuente_nombre": "LaFact Cultural",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Jungle Roses (Tributo a Guns N' Roses)",
+    "categoria": "Música/Jazz",
+    "fecha": "24/10/2026",
+    "lugar": "Sala Rasa 64, Terrassa",
+    "descripcion": "Concierto de homenaje a la banda de rock Guns N' Roses.",
+    "fuente_nombre": "Sala Rasa 64",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "XC3 'Remember Ray Brown'",
+    "categoria": "Música/Jazz",
+    "fecha": "24/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Concierto tributo a la figura histórica del contrabajista de jazz Ray Brown.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Les 12h Fantàstiques",
+    "categoria": "Cine",
+    "fecha": "24/10/2026",
+    "lugar": "Cinema Catalunya, Terrassa",
+    "descripcion": "Maratón de cine fantástico y de terror durante 12 horas ininterrumpidas.",
+    "fuente_nombre": "Cinema Catalunya",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Operetta",
+    "categoria": "Teatro/Danza",
+    "fecha": "25/10/2026",
+    "lugar": "Teatre Principal, Terrassa",
+    "descripcion": "Espectáculo cómico y lírico a cappella que acerca el mundo de la ópera a todos los públicos.",
+    "fuente_nombre": "Terrassa Arts Escèniques (Teatres)",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Yo sólo quiero irme a Francia",
+    "categoria": "Teatro/Danza",
+    "fecha": "25/10/2026",
+    "lugar": "LaFACT Cultural, Terrassa",
+    "descripcion": "Representación de obra teatral cómica y dramática sobre la huida y los anhelos vitales.",
+    "fuente_nombre": "LaFact Cultural",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Exposició: 'D’ànima, El camí' de Cristina Pérez Alay",
+    "categoria": "Cultura/Patrimonio",
+    "fecha": "25/10/2026",
+    "lugar": "Sala Muncunill, Terrassa",
+    "descripcion": "Último día para visitar la exposición artística de collage de Cristina Pérez Alay.",
+    "fuente_nombre": "Terrassa Cultura",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Exposició: 'El seu univers, trajectòria i expressió' de Kima Pintado Blasi",
+    "categoria": "Cultura/Patrimonio",
+    "fecha": "25/10/2026",
+    "lugar": "Sala Muncunill, Terrassa",
+    "descripcion": "Exposición retrospectiva de esmalte sobre el universo de Kima Pintado Blasi.",
+    "fuente_nombre": "Terrassa Cultura",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Exposició: 'Estrats. Els relats que guarden el cossos' d'Irene Pe",
+    "categoria": "Cultura/Patrimonio",
+    "fecha": "25/10/2026",
+    "lugar": "Sala Muncunill, Terrassa",
+    "descripcion": "Exposición multidisciplinar que explora las historias corporales y la memoria física.",
+    "fuente_nombre": "Terrassa Cultura",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Jornada ‘Més masculinitats Possibles’",
+    "categoria": "Cultura/Patrimonio",
+    "fecha": "29/10/2026",
+    "lugar": "Teatre Alegria, Terrassa",
+    "descripcion": "Jornada abierta con actividades y espacios de debate sobre relaciones, afectos y mandatos de género.",
+    "fuente_nombre": "Terrassa Digital",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Joana Puig Quartet + Jam Session",
+    "categoria": "Música/Jazz",
+    "fecha": "29/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Presentación del Taller de Músics Esem con Joana Puig Quartet y jam session.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Anna Szostak & Pol Prats Quintet",
+    "categoria": "Música/Jazz",
+    "fecha": "30/10/2026",
+    "lugar": "Nova Jazz Cava, Terrassa",
+    "descripcion": "Concierto conjunto de jazz contemporáneo con Anna Szostak y el quinteto de Pol Prats.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Joan Pera, L’Auca del Senyor Pera",
+    "categoria": "Teatro/Danza",
+    "fecha": "31/10/2026",
+    "lugar": "LaFACT Cultural, Terrassa",
+    "descripcion": "Espectáculo cómico y autobiográfico a cargo del emblemático actor catalán Joan Pera.",
+    "fuente_nombre": "LaFact Cultural",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Vargas Blues Band",
+    "categoria": "Música/Jazz",
+    "fecha": "31/10/2026",
+    "lugar": "Sala Rasa 64, Terrassa",
+    "descripcion": "Concierto de rock y blues a cargo de la consagrada banda de Javier Vargas.",
+    "fuente_nombre": "Sala Rasa 64",
+    "fuente_url": ""
+  },
+  {
+    "titulo": "Psicosi (Temporada Simfònica)",
+    "categoria": "Música/Jazz",
+    "fecha": "01/11/2026",
+    "lugar": "LaFACT Cultural, Terrassa",
+    "descripcion": "Concierto sinfónico dedicado a bandas sonoras y grandes partituras dramáticas del cine como Psicosis.",
+    "fuente_nombre": "LaFact Cultural",
+    "fuente_url": ""
+  }
+]

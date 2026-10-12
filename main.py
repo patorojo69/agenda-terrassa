@@ -26,7 +26,7 @@ fecha_fin = fecha_inicio + timedelta(days=30)
 str_inicio = fecha_inicio.strftime("%d/%m/%Y")
 str_fin = fecha_fin.strftime("%d/%m/%Y")
 
-# Sesión HTTP configurada con cabeceras avanzadas para evitar bloqueos 403
+# Sesión HTTP configurada con cabeceras avanzadas
 session = requests.Session()
 session.headers.update({
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
@@ -58,19 +58,48 @@ FUENTES = [
 ]
 
 print(f"📅 Rango de análisis: del {str_inicio} al {str_fin}")
-print("📡 Descargando fuentes de Terrassa...\n")
+print("📡 Descargando fuentes de Terrassa y procesando calendario institucional...\n")
 
 eventos_crudos = []
 
+# Base de datos completa de Festes Populars i Tradicionals de Terrassa (2026)
+CALENDARIO_ANUAL_CULTURA = [
+    {"titulo": "Ball de Reis", "categoria": "Cultura/Patrimonio", "fecha": "03/01/2026", "lugar": "Carrers del centre", "descripcion": "Ball de Reis a càrrec dels Bastoners de Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Cavalcada de Reis", "categoria": "Cultura/Patrimonio", "fecha": "05/01/2026", "lugar": "Recorregut per la ciutat", "descripcion": "Festa de benvinguda i cavalcada de SSMM els Reis Mags d'Orient.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "XCIX Carnestoltes", "categoria": "Cultura/Patrimonio", "fecha": "12/02/2026", "lugar": "Diversos espais", "descripcion": "Celebració del tradicional Carnestoltes a Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Caramelles", "categoria": "Cultura/Patrimonio", "fecha": "06/04/2026", "lugar": "Antic poble de Sant Pere", "descripcion": "Cantada de Caramelles a càrrec de La Xemeneia.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Diada de Sant Jordi", "categoria": "Cultura/Patrimonio", "fecha": "23/04/2026", "lugar": "Pl. Vella i Raval de Montserrat", "descripcion": "Actuacions de grups de cultura popular i exhibició castellera.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Diada del Drac de Terrassa", "categoria": "Cultura/Patrimonio", "fecha": "23/05/2026", "lugar": "Raval de Montserrat", "descripcion": "Celebració de la diada del Drac de Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Festa Major de Terrassa", "categoria": "Cultura/Patrimonio", "fecha": "03/07/2026", "lugar": "Diversos espais de la ciutat", "descripcion": "Inici de la Festa Major de Terrassa amb actes culturals i tradicionals.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Aniversari de la colla (Drac i Bruixes de Can Boada)", "categoria": "Cultura/Patrimonio", "fecha": "17/10/2026", "lugar": "Pl. Lluís Companys", "descripcion": "Trobada i celebració de l'aniversari de la colla de Drac i Bruixes.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Trobada dels Gegants Bojos", "categoria": "Cultura/Patrimonio", "fecha": "17/10/2026", "lugar": "Pl. Vapor Ventalló", "descripcion": "Trobada tradicional dels Gegants Bojos de Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Concurs Nacional de Colles Sardanistes", "categoria": "Cultura/Patrimonio", "fecha": "18/10/2026", "lugar": "Pl. Nova", "descripcion": "Concurs nacional organitzat per l'Agrupació Folklòrica Amunt i Crits.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Diada dels Diables de la Maurina", "categoria": "Cultura/Patrimonio", "fecha": "24/10/2026", "lugar": "Pl. del Progrés", "descripcion": "Diada de foc i tradició dels Diables de la Maurina.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Festa de la Castanyada", "categoria": "Cultura/Patrimonio", "fecha": "31/10/2026", "lugar": "Pl. del Progrés", "descripcion": "Festa popular de la Castanyada a càrrec de La Xemeneia.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Diada de la Colla Castellers de Terrassa", "categoria": "Cultura/Patrimonio", "fecha": "07/11/2026", "lugar": "Pl. Vella", "descripcion": "Diada castellera amb actuació dels Castellers de Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Acte d'Encesa de llums de Nadal", "categoria": "Cultura/Patrimonio", "fecha": "28/11/2026", "lugar": "Raval de Montserrat", "descripcion": "Inici oficial de la campanya nadalenca a Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    {"titulo": "Arribada del Patge Xiu-Xiu", "categoria": "Cultura/Patrimonio", "fecha": "19/12/2026", "lugar": "Estació del Nord", "descripcion": "Arribada del carter reial Patge Xiu-Xiu a Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"}
+]
+
+# Filtramos dinámicamente los eventos institucionales que caen en el rango de los 30 días
+eventos_pdf_filtrados = []
+for ev in CALENDARIO_ANUAL_CULTURA:
+    try:
+        f_evento = datetime.strptime(ev["fecha"], "%d/%m/%Y")
+        if fecha_inicio <= f_evento <= fecha_fin:
+            eventos_pdf_filtrados.append(ev)
+    except Exception:
+        pass
+
+# Descarga de fuentes web
 for fuente in FUENTES:
     nombre = fuente["nombre"]
     url = fuente["url"]
     tipo = fuente["tipo"]
     
     try:
-        # Truco anti-403: Realizamos primero una petición ligera a la raíz o usamos la URL como referer
         domain = "/".join(url.split("/")[:3])
-        session.get(domain, timeout=10) # Fuerza la creación de cookies de sesión si las hubiera
+        session.get(domain, timeout=10)
         
         headers_especificos = {
             "Referer": domain + "/",
@@ -80,7 +109,6 @@ for fuente in FUENTES:
         res = session.get(url, headers=headers_especificos, timeout=15)
         
         if res.status_code == 403:
-            # Segundo intento alternativo cambiando el User-Agent a Firefox por si bloquean Chrome
             headers_alternativos = {
                 "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0",
                 "Referer": "https://www.google.com/"
@@ -150,7 +178,7 @@ INSTRUCCIONES CRÍTICAS DE URL:
 
 INSTRUCCIONES GENERALES:
 1. Extrae TODOS los eventos, películas, conciertos, obras de teatro y actividades deportivas programadas entre el {str_inicio} y el {str_fin}.
-2. Omite strictly cualquier evento anterior al {str_inicio} o posterior al {str_fin}.
+2. Omite estrictamente cualquier evento anterior al {str_inicio} o posterior al {str_fin}.
 3. Devuelve únicamente una lista en formato JSON estructurada exactamente así por evento:
 [
   {{
@@ -199,9 +227,15 @@ if datos_json_str:
                 fuente_match = next((f for f in FUENTES if f["nombre"].lower() in nombre_f.lower()), None)
                 ev["fuente_url"] = fuente_match["url"] if fuente_match else "https://terrassadigital.cat/cultura/"
 
-        print(f"💾 Total eventos extraídos correctamente: {len(json_eventos_validos)}")
+        print(f"💾 Total eventos extraídos de las webs: {len(json_eventos_validos)}")
     except Exception as e:
         print(f"❌ Error al procesar JSON devuelto por Gemini: {e}")
+
+# 3. Fusionamos los eventos web con los tradicionales del PDF filtrados por fecha de forma dinámica
+for ev_pdf in eventos_pdf_filtrados:
+    json_eventos_validos.append(ev_pdf)
+
+print(f"✨ Total eventos finales (Webs + Cultura Popular en rango): {len(json_eventos_validos)}")
 
 json_str_raw = json.dumps(json_eventos_validos, ensure_ascii=False, indent=2)
 
@@ -374,6 +408,9 @@ html_template = """<!DOCTYPE html>
         const card = document.createElement('div');
         card.className = 'card';
         
+        const cardClass = ev.categoria && ev.categoria.includes('Cultura') ? 'card cultura' : 'card';
+        card.className = cardClass;
+        
         const cat = ev.categoria || 'Cultura';
         const tit = ev.titulo || 'Sin título';
         const fec = ev.fecha || 'Consultar fecha';
@@ -423,4 +460,4 @@ html_final = html_template.replace("{{STR_INICIO}}", str_inicio)\
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_final)
 
-print("🎉 ¡index.html actualizado correctamente con todas las fuentes al 100%!")
+print("🎉 ¡index.html actualizado correctamente de forma dinámica e integrada!")

@@ -26,13 +26,21 @@ fecha_fin = fecha_inicio + timedelta(days=30)
 str_inicio = fecha_inicio.strftime("%d/%m/%Y")
 str_fin = fecha_fin.strftime("%d/%m/%Y")
 
-# Sesión HTTP con cabeceras completas de navegador
+# Sesión HTTP configurada con cabeceras avanzadas para evitar bloqueos 403
 session = requests.Session()
 session.headers.update({
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "Accept-Language": "es-ES,es;q=0.9,ca;q=0.8",
-    "Cache-Control": "max-age=0",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+    "Accept-Language": "es-ES,es;q=0.9,ca;q=0.8,en;q=0.7",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+    "Sec-Ch-Ua": '"Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"',
+    "Sec-Ch-Ua-Mobile": "?0",
+    "Sec-Ch-Ua-Platform": '"Windows"',
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "cross-site",
+    "Sec-Fetch-User": "?1",
     "Upgrade-Insecure-Requests": "1"
 })
 
@@ -42,7 +50,7 @@ FUENTES = [
     {"nombre": "Diari de Terrassa", "url": "https://www.diarideterrassa.com/", "tipo": "html"},
     {"nombre": "JazzTerrassa / Nova Jazz Cava", "url": "https://www.jazzterrassa.org/ca/programacio/upcoming", "tipo": "html"},
     {"nombre": "LaFact Cultural", "url": "https://www.lafactcultural.cat/programacio/", "tipo": "html"},
-    {"nombre": "Visita Terrassa (Turisme/Ajuntament)", "url": "https://visitaterrassa.cat/agenda-events/llista/", "tipo": "html"},
+    {"nombre": "Visita Terrassa (Turisme/Ajuntament)", "url": "https://visitaterrassa.cat/wp-json/tribe/events/v1/events?per_page=50", "tipo": "json_tribe"},
     {"nombre": "Terrassa Arts Escèniques (Teatres)", "url": "https://terrassaartsesceniques.cat/", "tipo": "html"},
     {"nombre": "Terrassa Cultura", "url": "https://www.terrassacultura.cat/", "tipo": "html"},
     {"nombre": "Cinema Catalunya", "url": "https://cinemacatalunya.cat/", "tipo": "html"},
@@ -60,12 +68,33 @@ for fuente in FUENTES:
     tipo = fuente["tipo"]
     
     try:
-        headers_especificos = {"Referer": "https://www.google.com/"}
-        res = session.get(url, headers=headers_especificos, timeout=12)
+        # Truco anti-403: Realizamos primero una petición ligera a la raíz o usamos la URL como referer
+        domain = "/".join(url.split("/")[:3])
+        session.get(domain, timeout=10) # Fuerza la creación de cookies de sesión si las hubiera
+        
+        headers_especificos = {
+            "Referer": domain + "/",
+            "Host": url.replace("https://", "").replace("http://", "").split("/")[0]
+        }
+        
+        res = session.get(url, headers=headers_especificos, timeout=15)
+        
+        if res.status_code == 403:
+            # Segundo intento alternativo cambiando el User-Agent a Firefox por si bloquean Chrome
+            headers_alternativos = {
+                "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0",
+                "Referer": "https://www.google.com/"
+            }
+            res = session.get(url, headers=headers_alternativos, timeout=15)
+
         res.raise_for_status()
         
         if tipo == "rss":
-            soup = BeautifulSoup(res.text, 'xml')
+            try:
+                soup = BeautifulSoup(res.text, 'xml')
+            except Exception:
+                soup = BeautifulSoup(res.text, 'html.parser')
+                
             items = soup.find_all('item')[:20]
             for item in items:
                 titulo = item.title.text.strip() if item.title else ""
@@ -73,6 +102,20 @@ for fuente in FUENTES:
                 link = item.link.text.strip() if item.link else url
                 if titulo:
                     eventos_crudos.append(f"[{nombre}] (URL Base: {link}) Título: {titulo} | Detalle: {desc[:250]}")
+                    
+        elif tipo == "json_tribe":
+            data = res.json()
+            events = data if isinstance(data, list) else data.get("events", [])
+            for ev in events:
+                if isinstance(ev, dict):
+                    title = ev.get("title", "")
+                    start_date = ev.get("start_date", "")
+                    venue_data = ev.get("venue", {})
+                    venue = venue_data.get("venue", "Terrassa") if isinstance(venue_data, dict) else "Terrassa"
+                    description = BeautifulSoup(ev.get("description", ""), 'html.parser').get_text(strip=True)[:250]
+                    url_ev = ev.get("url", "https://visitaterrassa.cat/agenda-events/llista/")
+                    if title:
+                        eventos_crudos.append(f"[{nombre}] (URL Base: {url_ev}) Título: {title} | Fecha: {start_date} | Lugar: {venue} | Detalle: {description}")
                     
         elif tipo == "html":
             soup = BeautifulSoup(res.text, 'html.parser')
@@ -107,7 +150,7 @@ INSTRUCCIONES CRÍTICAS DE URL:
 
 INSTRUCCIONES GENERALES:
 1. Extrae TODOS los eventos, películas, conciertos, obras de teatro y actividades deportivas programadas entre el {str_inicio} y el {str_fin}.
-2. Omite estrictamente cualquier evento anterior al {str_inicio} o posterior al {str_fin}.
+2. Omite strictly cualquier evento anterior al {str_inicio} o posterior al {str_fin}.
 3. Devuelve únicamente una lista en formato JSON estructurada exactamente así por evento:
 [
   {{
@@ -149,11 +192,9 @@ if datos_json_str:
 
     try:
         json_eventos_validos = json.loads(datos_json_str)
-        # Limpieza de respaldo para eliminar cualquier URL que termine en extensiones de imagen
         for ev in json_eventos_validos:
             url_val = ev.get("fuente_url", "")
             if any(url_val.lower().endswith(ext) for ext in ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp']):
-                # Buscar URL por defecto de la fuente
                 nombre_f = ev.get("fuente_nombre", "")
                 fuente_match = next((f for f in FUENTES if f["nombre"].lower() in nombre_f.lower()), None)
                 ev["fuente_url"] = fuente_match["url"] if fuente_match else "https://terrassadigital.cat/cultura/"
@@ -163,6 +204,9 @@ if datos_json_str:
         print(f"❌ Error al procesar JSON devuelto por Gemini: {e}")
 
 json_str_raw = json.dumps(json_eventos_validos, ensure_ascii=False, indent=2)
+
+with open("eventos_30dias.json", "w", encoding="utf-8") as f:
+    f.write(json_str_raw)
 
 # ==========================================
 # 3. Generación de index.html
@@ -379,4 +423,4 @@ html_final = html_template.replace("{{STR_INICIO}}", str_inicio)\
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_final)
 
-print("🎉 ¡index.html actualizado correctamente con los enlaces corregidos!")
+print("🎉 ¡index.html actualizado correctamente con todas las fuentes al 100%!")

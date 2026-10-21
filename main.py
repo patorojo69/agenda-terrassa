@@ -54,7 +54,9 @@ FUENTES = [
     {"nombre": "Terrassa Arts Escèniques (Teatres)", "url": "https://terrassaartsesceniques.cat/", "tipo": "html"},
     {"nombre": "Terrassa Cultura", "url": "https://www.terrassacultura.cat/", "tipo": "html"},
     {"nombre": "Cinema Catalunya", "url": "https://cinemacatalunya.cat/", "tipo": "html"},
-    {"nombre": "Sala Rasa 64", "url": "https://salarasa64.com/", "tipo": "html"}
+    {"nombre": "Sala Rasa 64", "url": "https://salarasa64.com/", "tipo": "html"},
+    {"nombre": "Planomato Terrassa", "url": "https://www.planomato.com/es/terrassa/proximos-planes", "tipo": "html"},
+    {"nombre": "Sala Born / Zurito Terrassa", "url": "https://zuritoterrassa.com/es/sala-fiestas-born-terrassa/", "tipo": "html"}
 ]
 
 print(f"📅 Rango de análisis: del {str_inicio} al {str_fin}")
@@ -178,7 +180,7 @@ INSTRUCCIONES CRÍTICAS DE URL:
 
 INSTRUCCIONES GENERALES:
 1. Extrae TODOS los eventos, películas, conciertos, obras de teatro y actividades deportivas programadas entre el {str_inicio} y el {str_fin}.
-2. Omite estrictamente cualquier evento anterior al {str_inicio} o posterior al {str_fin}.
+2. Omite strictly cualquier evento anterior al {str_inicio} o posterior al {str_fin}.
 3. Devuelve únicamente una lista en formato JSON estructurada exactamente así por evento:
 [
   {{
@@ -269,7 +271,7 @@ html_template = """<!DOCTYPE html>
     }
     header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
     h1 {
       color: var(--primary);
@@ -284,7 +286,7 @@ html_template = """<!DOCTYPE html>
       justify-content: center;
       gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
     .btn-filter {
       background: #e2e8f0;
@@ -298,6 +300,45 @@ html_template = """<!DOCTYPE html>
     .btn-filter.active, .btn-filter:hover {
       background: var(--primary);
       color: white;
+    }
+    .date-filter-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 30px;
+      background: #ffffff;
+      padding: 10px 18px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .date-filter-box label {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .date-filter-box input[type="date"] {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      font-family: inherit;
+      color: var(--text);
+    }
+    .btn-clear {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      background: #e2e8f0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .btn-clear:hover {
+      background: #cbd5e1;
     }
     .grid {
       display: grid;
@@ -379,6 +420,12 @@ html_template = """<!DOCTYPE html>
     <button class="btn-filter" onclick="filtrar('Deportes/Ocio')">Deportes/Ocio</button>
   </div>
 
+  <div class="date-filter-box">
+    <label for="filtro-fecha">📅 Filtrar por día concreto:</label>
+    <input type="date" id="filtro-fecha" onchange="filtrarPorFecha(this.value)">
+    <button class="btn-clear" onclick="limpiarFecha()">Mostrar todos</button>
+  </div>
+
   <div class="grid" id="contenedor-eventos"></div>
 
   <script id="datos-eventos" type="application/json">
@@ -400,13 +447,12 @@ html_template = """<!DOCTYPE html>
       contenedor.innerHTML = '';
 
       if (!eventos || eventos.length === 0) {
-        contenedor.innerHTML = '<p style="grid-column: 1/-1; text-align:center;">No hay eventos disponibles para esta selección.</p>';
+        contenedor.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 20px; color: #6b7280;">No hay eventos disponibles para esta selección.</p>';
         return;
       }
 
       eventos.forEach(ev => {
         const card = document.createElement('div');
-        card.className = 'card';
         
         const cardClass = ev.categoria && ev.categoria.includes('Cultura') ? 'card cultura' : 'card';
         card.className = cardClass;
@@ -434,6 +480,8 @@ html_template = """<!DOCTYPE html>
     }
 
     function filtrar(cat) {
+      document.getElementById('filtro-fecha').value = '';
+      
       document.querySelectorAll('.btn-filter').forEach(btn => {
         btn.classList.toggle('active', btn.textContent.trim() === cat);
       });
@@ -445,6 +493,23 @@ html_template = """<!DOCTYPE html>
         const filtrados = todosEventos.filter(e => e.categoria && e.categoria.toLowerCase().includes(clave));
         renderizar(filtrados);
       }
+    }
+
+    function filtrarPorFecha(fechaInput) {
+      if (!fechaInput) return;
+      
+      const partes = fechaInput.split('-');
+      const fechaBuscada = `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+      document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+
+      const filtrados = todosEventos.filter(e => e.fecha === fechaBuscada);
+      renderizar(filtrados);
+    }
+
+    function limpiarFecha() {
+      document.getElementById('filtro-fecha').value = '';
+      filtrar('Todos');
     }
 
     document.addEventListener('DOMContentLoaded', () => renderizar(todosEventos));
@@ -460,4 +525,4 @@ html_final = html_template.replace("{{STR_INICIO}}", str_inicio)\
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_final)
 
-print("🎉 ¡index.html actualizado correctamente de forma dinámica e integrada!")
+print("🎉 ¡index.html actualizado correctamente con selector de fecha integrado!")

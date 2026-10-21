@@ -20,7 +20,7 @@
     }
     header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
     h1 {
       color: var(--primary);
@@ -35,7 +35,7 @@
       justify-content: center;
       gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
     .btn-filter {
       background: #e2e8f0;
@@ -49,6 +49,45 @@
     .btn-filter.active, .btn-filter:hover {
       background: var(--primary);
       color: white;
+    }
+    .date-filter-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 30px;
+      background: #ffffff;
+      padding: 10px 18px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .date-filter-box label {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .date-filter-box input[type="date"] {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      font-family: inherit;
+      color: var(--text);
+    }
+    .btn-clear {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      background: #e2e8f0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .btn-clear:hover {
+      background: #cbd5e1;
     }
     .grid {
       display: grid;
@@ -118,7 +157,7 @@
 
   <header>
     <h1>Agenda Unificada de Terrassa</h1>
-    <p class="subtitle">Eventos del 20/10/2026 al 19/11/2026 • Actualización diaria</p>
+    <p class="subtitle">Eventos del 21/10/2026 al 20/11/2026 • Actualización diaria</p>
   </header>
 
   <div class="filters">
@@ -130,52 +169,67 @@
     <button class="btn-filter" onclick="filtrar('Deportes/Ocio')">Deportes/Ocio</button>
   </div>
 
+  <div class="date-filter-box">
+    <label for="filtro-fecha">📅 Filtrar por día concreto:</label>
+    <input type="date" id="filtro-fecha" onchange="filtrarPorFecha(this.value)">
+    <button class="btn-clear" onclick="limpiarFecha()">Mostrar todos</button>
+  </div>
+
   <div class="grid" id="contenedor-eventos"></div>
 
   <script id="datos-eventos" type="application/json">
 [
   {
-    "titulo": "Cinefòrum: Strawberryfields",
-    "categoria": "Cine",
-    "fecha": "20/10/2026",
-    "lugar": "Cinema Catalunya",
-    "descripcion": "Proyección y cinefórum dentro de la programación especial.",
-    "fuente_nombre": "Cinema Catalunya",
-    "fuente_url": "https://cinemacatalunya.cat/"
+    "titulo": "Ball Social de Lindy Hop",
+    "categoria": "Deportes/Ocio",
+    "fecha": "21/10/2026",
+    "lugar": "Nova Jazz Cava",
+    "descripcion": "Sesión de baile social de Lindy Hop en la sala Nova Jazz Cava.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
   {
     "titulo": "Parallel 40 + Jam Session",
     "categoria": "Música/Jazz",
     "fecha": "22/10/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Concierto de Parallel 40 seguido de la tradicional jam session.",
+    "descripcion": "Concierto de jazz del quinteto Parallel 40 seguido de la Jam Session semanal.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
   {
-    "titulo": "Saúl Andreu Quartet \"Soulful Traveler\"",
-    "categoria": "Música/Jazz",
+    "titulo": "Jornada de portes obertes a la Casa Alegre de Sagrera",
+    "categoria": "Cultura/Patrimonio",
     "fecha": "23/10/2026",
-    "lugar": "Nova Jazz Cava",
-    "descripcion": "Actuación en directo de Saúl Andreu Quartet con su propuesta jazzística.",
-    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
-    "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
+    "lugar": "Casa Alegre de Sagrera",
+    "descripcion": "Jornada de puertas abiertas en la Casa Alegre de Sagrera dentro de la Setmana del Turisme Industrial.",
+    "fuente_nombre": "Planomato Terrassa",
+    "fuente_url": "https://www.planomato.com/es/terrassa/proximos-planes"
   },
   {
     "titulo": "Tribut a Sabina",
     "categoria": "Música/Jazz",
     "fecha": "23/10/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Concierto tributo dedicado a las canciones de Joaquín Sabina.",
+    "descripcion": "Concierto homenaje a Joaquín Sabina a cargo de la banda Malas Compañías.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
+  },
+  {
+    "titulo": "Saúl Andreu Quartet \"Soulful Traveler\"",
+    "categoria": "Música/Jazz",
+    "fecha": "23/10/2026",
+    "lugar": "Nova Jazz Cava",
+    "descripcion": "Primer concierto del trompetista Saúl Andreu presentando su álbum 'Soulful Traveler'.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
   {
     "titulo": "Hotel Cochambre",
     "categoria": "Música/Jazz",
     "fecha": "23/10/2026",
     "lugar": "Sala Rasa 64",
-    "descripcion": "Concierto de versiones y espectáculo a cargo de Hotel Cochambre.",
+    "descripcion": "Concierto en directo en la Sala Rasa 64.",
     "fuente_nombre": "Sala Rasa 64",
     "fuente_url": "https://salarasa64.com/"
   },
@@ -184,16 +238,34 @@
     "categoria": "Música/Jazz",
     "fecha": "24/10/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Homenaje musical al contrabajista Ray Brown de la mano del trío XC3.",
+    "descripcion": "El contrabajista Xavi Castillo presenta su trío XC3 en un tributo a Ray Brown.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
+  },
+  {
+    "titulo": "5a edició de la Festa del Pa",
+    "categoria": "Cultura/Patrimonio",
+    "fecha": "24/10/2026",
+    "lugar": "Terrassa",
+    "descripcion": "Quinta edición de la Gran Festa del Pa con talleres infantiles y actividades.",
+    "fuente_nombre": "Planomato Terrassa",
+    "fuente_url": "https://www.planomato.com/es/terrassa/proximos-planes"
+  },
+  {
+    "titulo": "La MítiKa Vespreig Remember",
+    "categoria": "Deportes/Ocio",
+    "fecha": "24/10/2026",
+    "lugar": "Sala Born",
+    "descripcion": "Sesión remember de música de los 80, 90 y 2000 con El Gran Germán.",
+    "fuente_nombre": "Sala Born / Zurito Terrassa",
+    "fuente_url": "https://zuritoterrassa.com/es/sala-fiestas-born-terrassa/"
   },
   {
     "titulo": "Fórmula V",
     "categoria": "Música/Jazz",
     "fecha": "24/10/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Concierto del mítico grupo musical Fórmula V.",
+    "descripcion": "Espectáculo musical de Fórmula V con Paco Pastor al frente.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
   },
@@ -202,43 +274,16 @@
     "categoria": "Música/Jazz",
     "fecha": "24/10/2026",
     "lugar": "Sala Rasa 64",
-    "descripcion": "Banda tributo repasando los grandes éxitos de Guns n' Roses.",
+    "descripcion": "Concierto tributo a Guns n' Roses en la Sala Rasa 64.",
     "fuente_nombre": "Sala Rasa 64",
     "fuente_url": "https://salarasa64.com/"
   },
   {
-    "titulo": "Fantàstiques",
-    "categoria": "Cine",
-    "fecha": "24/10/2026",
-    "lugar": "Cinema Catalunya",
-    "descripcion": "Proyección especial enmarcada en el ciclo de cine.",
-    "fuente_nombre": "Cinema Catalunya",
-    "fuente_url": "https://cinemacatalunya.cat/"
-  },
-  {
-    "titulo": "Superthings: La pel·lícula",
-    "categoria": "Cine",
-    "fecha": "24/10/2026",
-    "lugar": "Cinema Catalunya",
-    "descripcion": "Película infantil basada en el popular universo de Superthings.",
-    "fuente_nombre": "Cinema Catalunya",
-    "fuente_url": "https://cinemacatalunya.cat/"
-  },
-  {
-    "titulo": "Terrassa pel Nepal",
-    "categoria": "Cultura/Patrimonio",
-    "fecha": "25/10/2026",
-    "lugar": "Nova Jazz Cava",
-    "descripcion": "Evento solidario y cultural extraordinario en la Nova Jazz Cava.",
-    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
-    "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
-  },
-  {
-    "titulo": "Yo sólo quiero irme a Francia",
+    "titulo": "Yo solo quiero irme a Francia",
     "categoria": "Teatro/Danza",
     "fecha": "25/10/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Espectáculo teatral enmarcado en la programación de La Factoria Cultural.",
+    "descripcion": "Obra de teatro que reflexiona sobre las herencias emocionales y la memoria familiar.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
   },
@@ -247,70 +292,79 @@
     "categoria": "Teatro/Danza",
     "fecha": "25/10/2026",
     "lugar": "Teatre Principal",
-    "descripcion": "Espectáculo de humor y ópera dirigido por Jordi Purtí.",
+    "descripcion": "Espectáculo teatral de ópera y humor a cargo de Jordi Purtí.",
     "fuente_nombre": "Terrassa Arts Escèniques (Teatres)",
     "fuente_url": "https://terrassaartsesceniques.cat/"
+  },
+  {
+    "titulo": "Terrassa pel Nepal",
+    "categoria": "Música/Jazz",
+    "fecha": "25/10/2026",
+    "lugar": "Nova Jazz Cava",
+    "descripcion": "Concierto de jazz solidario a favor de los supervivientes de las inundaciones en Nepal.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
   {
     "titulo": "Del gran contrast Barroc a la nova creació",
     "categoria": "Música/Jazz",
     "fecha": "25/10/2026",
     "lugar": "Auditori Terrassa",
-    "descripcion": "Concierto de la Orquestra de Cambra Terrassa 48 invitando al Trio Pedrell.",
+    "descripcion": "Concierto de la Orquestra de Cambra Terrassa 48 y el Trio Pedrell.",
     "fuente_nombre": "Terrassa Cultura",
     "fuente_url": "https://www.terrassacultura.cat/"
+  },
+  {
+    "titulo": "3a Trobada de Mercats Setmanals de Catalunya",
+    "categoria": "Cultura/Patrimonio",
+    "fecha": "26/10/2026",
+    "lugar": "Auditori Municipal",
+    "descripcion": "Jornada profesional para ayuntamientos y paradas sobre el comercio no sedentario.",
+    "fuente_nombre": "Món Terrassa",
+    "fuente_url": ""
   },
   {
     "titulo": "Ball Social de Lindy Hop",
     "categoria": "Deportes/Ocio",
     "fecha": "28/10/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Baile social abierto dedicado al estilo Lindy Hop.",
+    "descripcion": "Sesión de baile social de Lindy Hop.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
   {
-    "titulo": "Taller de Músics Esem Presenta: Joana Puig Quartet + Jam Session",
+    "titulo": "Metropolis, de Fritz Lang",
+    "categoria": "Cine",
+    "fecha": "29/10/2026",
+    "lugar": "Terrassa",
+    "descripcion": "Proyección de la película de Fritz Lang en versión original dentro del ciclo de Filmoteca.",
+    "fuente_nombre": "Planomato Terrassa",
+    "fuente_url": "https://www.planomato.com/es/terrassa/proximos-planes"
+  },
+  {
+    "titulo": "Taller de Músics ESEM Presenta: Joana Puig Quartet + Jam Session",
     "categoria": "Música/Jazz",
     "fecha": "29/10/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Concierto a cargo de Joana Puig Quartet seguido de jam session.",
+    "descripcion": "Concierto del Joana Puig Quartet seguido de jam session de jazz.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
-  },
-  {
-    "titulo": "Filmoteca: Metropolis",
-    "categoria": "Cine",
-    "fecha": "29/10/2026",
-    "lugar": "Cinema Catalunya",
-    "descripcion": "Proyección del clásico del cine dentro del ciclo de la Filmoteca.",
-    "fuente_nombre": "Cinema Catalunya",
-    "fuente_url": "https://cinemacatalunya.cat/"
   },
   {
     "titulo": "Anna Szostak & Pol Prats Quintet",
     "categoria": "Música/Jazz",
     "fecha": "30/10/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Propuesta de jazz contemporáneo con Anna Szostak y Pol Prats Quintet.",
+    "descripcion": "Concierto de jazz vocal con la cantante Anna Szostak y el saxofonista Pol Prats.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
   {
-    "titulo": "Tiempos de ilusión",
-    "categoria": "Cine",
-    "fecha": "30/10/2026",
-    "lugar": "Cinema Catalunya",
-    "descripcion": "Proyección especial en la gran pantalla del Cinema Catalunya.",
-    "fuente_nombre": "Cinema Catalunya",
-    "fuente_url": "https://cinemacatalunya.cat/"
-  },
-  {
-    "titulo": "Joan Pera, L’Auca del Senyor Pera",
+    "titulo": "L’Auca del Senyor Pera",
     "categoria": "Teatro/Danza",
     "fecha": "31/10/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Comedia teatral protagonizada por el conocido actor Joan Pera.",
+    "descripcion": "Monólogo cómico donde Joan Pera despliega su talento en un guiño a Rusiñol.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
   },
@@ -319,16 +373,25 @@
     "categoria": "Música/Jazz",
     "fecha": "31/10/2026",
     "lugar": "Sala Rasa 64",
-    "descripcion": "Concierto en directo de blues y rock con la Vargas Blues Band.",
+    "descripcion": "Concierto de blues en directo en la Sala Rasa 64.",
     "fuente_nombre": "Sala Rasa 64",
     "fuente_url": "https://salarasa64.com/"
   },
   {
+    "titulo": "Tardeo CastaWeen, Castañada - Halloween",
+    "categoria": "Deportes/Ocio",
+    "fecha": "31/10/2026",
+    "lugar": "Plaça Didó / Sala Born",
+    "descripcion": "Fiesta temática de la Castañada y Halloween con actividades para todos en la calle.",
+    "fuente_nombre": "Sala Born / Zurito Terrassa",
+    "fuente_url": "https://zuritoterrassa.com/es/sala-fiestas-born-terrassa/"
+  },
+  {
     "titulo": "Psicosi",
-    "categoria": "Teatro/Danza",
+    "categoria": "Cine",
     "fecha": "01/11/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Representación escénica dentro de la programación teatral.",
+    "descripcion": "Proyección de la película 'Psicosis' con la banda sonora interpretada en directo por la OSV.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
   },
@@ -337,7 +400,7 @@
     "categoria": "Deportes/Ocio",
     "fecha": "04/11/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Velada de baile social de Lindy Hop en la Nova Jazz Cava.",
+    "descripcion": "Sesión de baile social de Lindy Hop.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
@@ -346,7 +409,7 @@
     "categoria": "Música/Jazz",
     "fecha": "05/11/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Actuación de Jordi Pallarés Project y posterior jam session abierta.",
+    "descripcion": "Concierto de jazz a cargo del trío Jordi Pallarés Project con jam session.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
@@ -355,16 +418,16 @@
     "categoria": "Música/Jazz",
     "fecha": "06/11/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Concierto de jazz de la mano de Matías Miguez y su proyecto Swango.",
+    "descripcion": "Concierto de jazz con Matías Miguez y su proyecto Swango.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
   {
-    "titulo": "REC PLAY (Versiones de los 80's, 90's y 2000's)",
+    "titulo": "Rec Play (Versiones 80, 90 y 2000)",
     "categoria": "Música/Jazz",
     "fecha": "06/11/2026",
     "lugar": "Sala Rasa 64",
-    "descripcion": "Fiesta y concierto con los mejores temas de las décadas doradas.",
+    "descripcion": "Concierto con las mejores versiones de los años 80, 90 y 2000.",
     "fuente_nombre": "Sala Rasa 64",
     "fuente_url": "https://salarasa64.com/"
   },
@@ -373,7 +436,7 @@
     "categoria": "Música/Jazz",
     "fecha": "07/11/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Directo de jazz contemporáneo con el cuarteto liderado por Mireia Vidal.",
+    "descripcion": "Concierto de jazz a cargo del Mireia Vidal Quartet.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
@@ -382,7 +445,7 @@
     "categoria": "Teatro/Danza",
     "fecha": "07/11/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Espectáculo de danza a cargo de la prestigiosa compañía nacional.",
+    "descripcion": "Actuación del Ballet Nacional de España dentro de la 43ª Temporada BBVA de Dansa.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
   },
@@ -391,16 +454,16 @@
     "categoria": "Música/Jazz",
     "fecha": "07/11/2026",
     "lugar": "Sala Rasa 64",
-    "descripcion": "Banda tributo repasando los grandes éxitos del pop-rock español.",
+    "descripcion": "Concierto tributo a El Canto del Loco en la Sala Rasa 64.",
     "fuente_nombre": "Sala Rasa 64",
     "fuente_url": "https://salarasa64.com/"
   },
   {
-    "titulo": "Ballet Nacional de España",
+    "titulo": "Ballet Nacional de España (Segunda función)",
     "categoria": "Teatro/Danza",
     "fecha": "08/11/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Segunda función del Ballet Nacional de España en Terrassa.",
+    "descripcion": "Segunda jornada de actuación del Ballet Nacional de España.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
   },
@@ -409,7 +472,16 @@
     "categoria": "Música/Jazz",
     "fecha": "12/11/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Concierto del grupo Among 3 y tradicional jam session posterior.",
+    "descripcion": "Sesión de jazz con Roger Mas, Bori Albero y Juanma Nieto, seguida de jam session.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
+  },
+  {
+    "titulo": "Fèlix Rossy Sextet",
+    "categoria": "Música/Jazz",
+    "fecha": "13/11/2026",
+    "lugar": "Nova Jazz Cava",
+    "descripcion": "Concierto de jazz del Fèlix Rossy Sextet con Fèlix Rossy a la trompeta.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
@@ -418,70 +490,61 @@
     "categoria": "Música/Jazz",
     "fecha": "13/11/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Concierto del virtuoso violinista Ara Malikian (doble sesión).",
+    "descripcion": "El violinista Ara Malikian presenta su nueva gira 'Intruso'.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
-  },
-  {
-    "titulo": "Fèlix Rossy Sextet",
-    "categoria": "Música/Jazz",
-    "fecha": "13/11/2026",
-    "lugar": "Nova Jazz Cava",
-    "descripcion": "Exquisita propuesta de jazz moderno con el Fèlix Rossy Sextet.",
-    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
-    "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
   {
     "titulo": "Bruce Barth Trio + Piero Odorici",
     "categoria": "Música/Jazz",
     "fecha": "14/11/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Cicle Centenari Coltrane con Bruce Barth Trio y el saxofonista Piero Odorici.",
+    "descripcion": "Concierto dentro del Cicle Centenari Coltrane con Bruce Barth Trio y Piero Odorici.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
+  },
+  {
+    "titulo": "Dones Valentes",
+    "categoria": "Teatro/Danza",
+    "fecha": "14/11/2026",
+    "lugar": "Teatre Principal",
+    "descripcion": "Espectáculo teatral programado dentro de la temporada de artes escénicas.",
+    "fuente_nombre": "Terrassa Arts Escèniques (Teatres)",
+    "fuente_url": "https://terrassaartsesceniques.cat/"
   },
   {
     "titulo": "Tribut a Raffaella Carrà",
     "categoria": "Música/Jazz",
     "fecha": "14/11/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Espectáculo musical y tributo homenaje a la gran Raffaella Carrà.",
+    "descripcion": "Espectáculo musical en homenaje a la gran artista Raffaella Carrà.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
-  },
-  {
-    "titulo": "Dones valentes",
-    "categoria": "Teatro/Danza",
-    "fecha": "14/11/2026",
-    "lugar": "Teatre Principal",
-    "descripcion": "Obra teatral enfocada en historias de superación y protagonismo femenino.",
-    "fuente_nombre": "Terrassa Arts Escèniques (Teatres)",
-    "fuente_url": "https://terrassaartsesceniques.cat/"
   },
   {
     "titulo": "Embellish + For a Broken Dream",
     "categoria": "Música/Jazz",
     "fecha": "14/11/2026",
     "lugar": "Sala Rasa 64",
-    "descripcion": "Concierto de música en directo con Embellish y For a Broken Dream.",
+    "descripcion": "Concierto de rock y metal alternativo en la Sala Rasa 64.",
     "fuente_nombre": "Sala Rasa 64",
     "fuente_url": "https://salarasa64.com/"
   },
   {
     "titulo": "Gromic",
-    "categoria": "Cultura/Patrimonio",
+    "categoria": "Teatro/Danza",
     "fecha": "15/11/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Espectáculo familiar de artes escénicas y visuales.",
+    "descripcion": "Espectáculo familiar de artes escénicas.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
   },
   {
-    "titulo": "La captura de la temporada",
+    "titulo": "La captura de la temporada (Exposició)",
     "categoria": "Cultura/Patrimonio",
     "fecha": "18/11/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Inauguración de exposición artística de carácter gratuito.",
+    "descripcion": "Inauguración de exposición con entrada gratuita.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
   },
@@ -490,7 +553,7 @@
     "categoria": "Música/Jazz",
     "fecha": "19/11/2026",
     "lugar": "Nova Jazz Cava",
-    "descripcion": "Concierto de Claudia Valeria organizado por el Taller de Músics, con jam session.",
+    "descripcion": "Concierto del ciclo del Taller de Músics ESEM seguido de jam session.",
     "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
     "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
   },
@@ -499,9 +562,27 @@
     "categoria": "Teatro/Danza",
     "fecha": "19/11/2026",
     "lugar": "LaFACT Cultural",
-    "descripcion": "Monólogo de humor a cargo del cómico David Suárez.",
+    "descripcion": "Monólogo de comedia.",
     "fuente_nombre": "LaFact Cultural",
     "fuente_url": "https://www.lafactcultural.cat/programacio/"
+  },
+  {
+    "titulo": "14è Formatjazz amb Liza Wuyts & Bech",
+    "categoria": "Música/Jazz",
+    "fecha": "20/11/2026",
+    "lugar": "Nova Jazz Cava",
+    "descripcion": "Concierto dentro del 14º Formatjazz en la Nova Jazz Cava.",
+    "fuente_nombre": "JazzTerrassa / Nova Jazz Cava",
+    "fuente_url": "https://www.jazzterrassa.org/ca/programacio/upcoming"
+  },
+  {
+    "titulo": "Mind2Mode (Tributo a U2, Depeche Mode y Simple Minds)",
+    "categoria": "Música/Jazz",
+    "fecha": "20/11/2026",
+    "lugar": "Sala Rasa 64",
+    "descripcion": "Concierto tributo a grandes bandas del rock alternativo y pop electrónico.",
+    "fuente_nombre": "Sala Rasa 64",
+    "fuente_url": "https://salarasa64.com/"
   },
   {
     "titulo": "Diada dels Diables de la Maurina",
@@ -548,13 +629,12 @@
       contenedor.innerHTML = '';
 
       if (!eventos || eventos.length === 0) {
-        contenedor.innerHTML = '<p style="grid-column: 1/-1; text-align:center;">No hay eventos disponibles para esta selección.</p>';
+        contenedor.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 20px; color: #6b7280;">No hay eventos disponibles para esta selección.</p>';
         return;
       }
 
       eventos.forEach(ev => {
         const card = document.createElement('div');
-        card.className = 'card';
         
         const cardClass = ev.categoria && ev.categoria.includes('Cultura') ? 'card cultura' : 'card';
         card.className = cardClass;
@@ -582,6 +662,8 @@
     }
 
     function filtrar(cat) {
+      document.getElementById('filtro-fecha').value = '';
+      
       document.querySelectorAll('.btn-filter').forEach(btn => {
         btn.classList.toggle('active', btn.textContent.trim() === cat);
       });
@@ -593,6 +675,23 @@
         const filtrados = todosEventos.filter(e => e.categoria && e.categoria.toLowerCase().includes(clave));
         renderizar(filtrados);
       }
+    }
+
+    function filtrarPorFecha(fechaInput) {
+      if (!fechaInput) return;
+      
+      const partes = fechaInput.split('-');
+      const fechaBuscada = `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+      document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+
+      const filtrados = todosEventos.filter(e => e.fecha === fechaBuscada);
+      renderizar(filtrados);
+    }
+
+    function limpiarFecha() {
+      document.getElementById('filtro-fecha').value = '';
+      filtrar('Todos');
     }
 
     document.addEventListener('DOMContentLoaded', () => renderizar(todosEventos));

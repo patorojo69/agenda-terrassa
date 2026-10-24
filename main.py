@@ -46,7 +46,6 @@ session.headers.update({
 
 FUENTES = [
     {"nombre": "Terrassa Digital", "url": "https://terrassadigital.cat/cultura/", "tipo": "html"},
-    {"nombre": "Món Terrassa", "url": "https://monterrassa.cat/feed/", "tipo": "rss"},
     {"nombre": "Diari de Terrassa", "url": "https://www.diarideterrassa.com/", "tipo": "html"},
     {"nombre": "JazzTerrassa / Nova Jazz Cava", "url": "https://www.jazzterrassa.org/ca/programacio/upcoming", "tipo": "html"},
     {"nombre": "LaFact Cultural", "url": "https://www.lafactcultural.cat/programacio/", "tipo": "html"},
@@ -62,7 +61,35 @@ FUENTES = [
 print(f"📅 Rango de análisis: del {str_inicio} al {str_fin}")
 print("📡 Descargando fuentes de Terrassa y procesando calendario institucional...\n")
 
-eventos_crudos = []
+eventos_crudos_por_fuente = []
+texto_monterrassa_exclusivo = ""
+url_monterrassa_detectada = "https://monterrassa.cat/"
+
+# 1. Búsqueda y extracción dedicada de Món Terrassa desde la portada
+try:
+    res_portada = session.get("https://monterrassa.cat/", timeout=15)
+    if res_portada.status_code == 200:
+        soup_p = BeautifulSoup(res_portada.text, 'html.parser')
+        for a in soup_p.find_all('a', href=True):
+            href = a['href']
+            texto_link = a.get_text(strip=True).lower()
+            hijos_texto = " ".join([tag.get_text(strip=True) for tag in a.find_all(['h2', 'h3', 'span', 'p'])]).lower()
+            contenido_total = f"{href} {texto_link} {hijos_texto}"
+            
+            if "monterrassa.cat" in href and any(kw in contenido_total for kw in ["agenda", "que fer", "què fer", "dies", "cap de setmana"]):
+                if not any(ext in href for ext in ['.jpg', '.png', '.webp', '/tag/', '/categoria/']):
+                    url_monterrassa_detectada = href
+                    break
+        
+        res_art = session.get(url_monterrassa_detectada, timeout=15)
+        if res_art.status_code == 200:
+            soup_art = BeautifulSoup(res_art.text, 'html.parser')
+            for tag in soup_art(["script", "style", "nav", "footer", "header", "form", "svg"]):
+                tag.extract()
+            texto_monterrassa_exclusivo = soup_art.get_text(separator=' ', strip=True)
+            print(f"  🔍 Artículo de Món Terrassa aislado correctamente: {url_monterrassa_detectada}")
+except Exception as e:
+    print(f"  ⚠ Aviso al aislar Món Terrassa: {e}")
 
 # Base de datos completa de Festes Populars i Tradicionals de Terrassa (2026)
 CALENDARIO_ANUAL_CULTURA = [
@@ -83,7 +110,6 @@ CALENDARIO_ANUAL_CULTURA = [
     {"titulo": "Arribada del Patge Xiu-Xiu", "categoria": "Cultura/Patrimonio", "fecha": "19/12/2026", "lugar": "Estació del Nord", "descripcion": "Arribada del carter reial Patge Xiu-Xiu a Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"}
 ]
 
-# Filtramos dinámicamente los eventos institucionales que caen en el rango de los 30 días
 eventos_pdf_filtrados = []
 for ev in CALENDARIO_ANUAL_CULTURA:
     try:
@@ -93,7 +119,7 @@ for ev in CALENDARIO_ANUAL_CULTURA:
     except Exception:
         pass
 
-# Descarga de fuentes web
+# Descarga del resto de fuentes web y almacenamiento estructurado por fuente
 for fuente in FUENTES:
     nombre = fuente["nombre"]
     url = fuente["url"]
@@ -119,23 +145,11 @@ for fuente in FUENTES:
 
         res.raise_for_status()
         
-        if tipo == "rss":
-            try:
-                soup = BeautifulSoup(res.text, 'xml')
-            except Exception:
-                soup = BeautifulSoup(res.text, 'html.parser')
-                
-            items = soup.find_all('item')[:20]
-            for item in items:
-                titulo = item.title.text.strip() if item.title else ""
-                desc = item.description.text.strip() if item.description else ""
-                link = item.link.text.strip() if item.link else url
-                if titulo:
-                    eventos_crudos.append(f"[{nombre}] (URL Base: {link}) Título: {titulo} | Detalle: {desc[:250]}")
-                    
-        elif tipo == "json_tribe":
+        texto_fuente = ""
+        if tipo == "json_tribe":
             data = res.json()
             events = data if isinstance(data, list) else data.get("events", [])
+            items_str = []
             for ev in events:
                 if isinstance(ev, dict):
                     title = ev.get("title", "")
@@ -143,106 +157,135 @@ for fuente in FUENTES:
                     venue_data = ev.get("venue", {})
                     venue = venue_data.get("venue", "Terrassa") if isinstance(venue_data, dict) else "Terrassa"
                     description = BeautifulSoup(ev.get("description", ""), 'html.parser').get_text(strip=True)[:250]
-                    url_ev = ev.get("url", "https://visitaterrassa.cat/agenda-events/llista/")
+                    url_ev = ev.get("url", url)
                     if title:
-                        eventos_crudos.append(f"[{nombre}] (URL Base: {url_ev}) Título: {title} | Fecha: {start_date} | Lugar: {venue} | Detalle: {description}")
+                        items_str.append(f"Título: {title} | Fecha: {start_date} | Lugar: {venue} | Detalle: {description} | URL: {url_ev}")
+            texto_fuente = "\n".join(items_str)
                     
         elif tipo == "html":
             soup = BeautifulSoup(res.text, 'html.parser')
             for tag in soup(["script", "style", "nav", "footer", "header", "form", "svg"]):
                 tag.extract()
-            texto = soup.get_text(separator=' ', strip=True)[:7000]
-            if texto.strip():
-                eventos_crudos.append(f"[{nombre}] (URL Base: {url}) Contenido: {texto}")
+            texto_fuente = soup.get_text(separator=' ', strip=True)[:7000]
+            
+        if texto_fuente.strip():
+            eventos_crudos_por_fuente.append({"nombre": nombre, "url": url, "contenido": texto_fuente})
             
         print(f"  ✅ {nombre}: OK.")
     except Exception as e:
         print(f"  ❌ {nombre}: Omitido ({e}).")
-
-bloque_datos = "\n\n".join(eventos_crudos)
 
 # ==========================================
 # 2. Extracción de Eventos con Gemini
 # ==========================================
 print("\n🤖 Analizando eventos con Gemini...")
 
-prompt_fase1 = f"""
-Eres un extractor de datos de eventos culturales.
-Analiza la siguiente información de Terrassa:
-
---- INICIO DATOS ---
-{bloque_datos}
---- FIN DATOS ---
-
-INSTRUCCIONES CRÍTICAS DE URL:
-- El campo `fuente_url` DEBE SER la URL web o enlace especificado como 'URL Base' para la fuente correspondiente.
-- NUNCA uses enlaces a archivos de imagen (como .png, .jpg, .webp, logos, etc.) en `fuente_url`.
-
-INSTRUCCIONES GENERALES:
-1. Extrae TODOS los eventos, películas, conciertos, obras de teatro y actividades deportivas programadas entre el {str_inicio} y el {str_fin}.
-2. Omite strictly cualquier evento anterior al {str_inicio} o posterior al {str_fin}.
-3. Devuelve únicamente una lista en formato JSON estructurada exactamente así por evento:
-[
-  {{
-    "titulo": "Nombre del evento",
-    "categoria": "Música/Jazz",
-    "fecha": "DD/MM/YYYY",
-    "lugar": "Ubicación en Terrassa",
-    "descripcion": "Resumen breve de 1-2 líneas",
-    "fuente_nombre": "Nombre de la fuente",
-    "fuente_url": "URL Base especificada de la fuente"
-  }}
-]
-Categorías válidas permitidas: "Música/Jazz", "Teatro/Danza", "Cine", "Cultura/Patrimonio", "Deportes/Ocio".
-4. Devuelve ÚNICAMENTE el array JSON plano. No incluyas explicaciones ni etiquetas markdown.
-"""
-
-modelos = ['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-1.5-flash']
-datos_json_str = ""
-
-for model_name in modelos:
-    try:
-        response = client.models.generate_content(
-            model=model_name,
-            contents=prompt_fase1
-        )
-        datos_json_str = response.text.strip()
-        print(f"✅ Respuesta recibida con éxito de {model_name}.")
-        break
-    except Exception as e:
-        print(f"⚠ Error con {model_name}: {e}. Probando el siguiente modelo...")
-        time.sleep(1)
-
 json_eventos_validos = []
+modelos_disponibles = ['gemini-3.8-flash', 'gemini-1.5-flash']
 
-if datos_json_str:
-    match = re.search(r'\[.*\]', datos_json_str, re.DOTALL)
-    if match:
-        datos_json_str = match.group(0)
+def invocar_gemini(prompt_texto):
+    for mod in modelos_disponibles:
+        try:
+            resp = client.models.generate_content(model=mod, contents=prompt_texto)
+            return resp.text.strip()
+        except Exception:
+            continue
+    return ""
 
-    try:
-        json_eventos_validos = json.loads(datos_json_str)
-        for ev in json_eventos_validos:
-            url_val = ev.get("fuente_url", "")
-            if any(url_val.lower().endswith(ext) for ext in ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp']):
-                nombre_f = ev.get("fuente_nombre", "")
-                fuente_match = next((f for f in FUENTES if f["nombre"].lower() in nombre_f.lower()), None)
-                ev["fuente_url"] = fuente_match["url"] if fuente_match else "https://terrassadigital.cat/cultura/"
+# 2.1 Procesamiento dedicado de Món Terrassa
+if texto_monterrassa_exclusivo:
+    prompt_monterrassa = f"""
+    Eres un extractor experto de datos de eventos culturales.
+    Analiza exclusivamente el siguiente artículo de Món Terrassa:
+    URL de origen: {url_monterrassa_detectada}
 
-        print(f"💾 Total eventos extraídos de las webs: {len(json_eventos_validos)}")
-    except Exception as e:
-        print(f"❌ Error al procesar JSON devuelto por Gemini: {e}")
+    --- INICIO TEXTO MÓN TERRASSA ---
+    {texto_monterrassa_exclusivo}
+    --- FIN TEXTO MÓN TERRASSA ---
 
-# 3. Fusionamos los eventos web con los tradicionales del PDF filtrados por fecha de forma dinámica
+    INSTRUCCIONES:
+    1. Extrae TODOS los eventos, conciertos, obras de teatro, exposiciones y actividades listadas en este artículo que estén programadas entre el {str_inicio} y el {str_fin}.
+    2. El campo `fuente_url` de cada evento extraído DEBE SER obligatoriamente: "{url_monterrassa_detectada}".
+    3. El campo `fuente_nombre` debe ser "Món Terrassa".
+    4. Devuelve únicamente un array JSON plano estructurado exactamente así:
+    [
+      {{
+        "titulo": "Nombre del evento",
+        "categoria": "Cultura/Patrimonio",
+        "fecha": "DD/MM/YYYY",
+        "lugar": "Ubicación en Terrassa",
+        "descripcion": "Resumen breve",
+        "fuente_nombre": "Món Terrassa",
+        "fuente_url": "{url_monterrassa_detectada}"
+      }}
+    ]
+    Categorías válidas: "Música/Jazz", "Teatro/Danza", "Cine", "Cultura/Patrimonio", "Deportes/Ocio".
+    5. Devuelve ÚNICAMENTE el array JSON plano sin explicaciones ni markdown.
+    """
+    respuesta_m = invocar_gemini(prompt_monterrassa)
+    if respuesta_m:
+        match_m = re.search(r'\[.*\]', respuesta_m, re.DOTALL)
+        if match_m:
+            try:
+                eventos_monterrassa = json.loads(match_m.group(0))
+                json_eventos_validos.extend(eventos_monterrassa)
+                print(f"  ✨ Món Terrassa: {len(eventos_monterrassa)} eventos extraídos.")
+            except Exception as e:
+                print(f"  ⚠ Error parseando Món Terrassa: {e}")
+
+# 2.2 Procesamiento por Lotes (Batching de 3 fuentes por llamada)
+tamano_lote = 3
+lotes = [eventos_crudos_por_fuente[i:i + tamano_lote] for i in range(0, len(eventos_crudos_por_fuente), tamano_lote)]
+
+for idx, lote in enumerate(lotes, start=1):
+    bloque_lote = ""
+    for item in lote:
+        bloque_lote += f"\n--- FUENTE: {item['nombre']} (URL Base: {item['url']}) ---\n{item['contenido']}\n"
+        
+    prompt_lote = f"""
+    Eres un extractor de datos de eventos culturales.
+    Analiza la siguiente información de eventos en Terrassa:
+
+    {bloque_lote}
+
+    INSTRUCCIONES CRÍTICAS:
+    1. Extrae TODOS los eventos programados estrictamente entre el {str_inicio} y el {str_fin}.
+    2. El campo `fuente_url` DEBE ser la URL de la fuente de donde se extrajo el evento. NUNCA enlaces a imágenes (.jpg, .png, .webp).
+    3. Categorías válidas: "Música/Jazz", "Teatro/Danza", "Cine", "Cultura/Patrimonio", "Deportes/Ocio".
+    4. Devuelve únicamente una lista en formato JSON estructurada así:
+    [
+      {{
+        "titulo": "Nombre del evento",
+        "categoria": "Música/Jazz",
+        "fecha": "DD/MM/YYYY",
+        "lugar": "Ubicación en Terrassa",
+        "descripcion": "Resumen breve",
+        "fuente_nombre": "Nombre de la fuente",
+        "fuente_url": "URL especificada de la fuente"
+      }}
+    ]
+    5. Devuelve ÚNICAMENTE el array JSON plano sin marcas markdown ni comentarios.
+    """
+    
+    respuesta_lote = invocar_gemini(prompt_lote)
+    if respuesta_lote:
+        match_l = re.search(r'\[.*\]', respuesta_lote, re.DOTALL)
+        if match_l:
+            try:
+                evs = json.loads(match_l.group(0))
+                json_eventos_validos.extend(evs)
+                print(f"  ✨ Lote {idx}/{len(lotes)}: {len(evs)} eventos extraídos.")
+            except Exception as e:
+                print(f"  ⚠ Error parseando Lote {idx}: {e}")
+
+# 3. Fusionamos con el calendario tradicional del PDF
 for ev_pdf in eventos_pdf_filtrados:
     json_eventos_validos.append(ev_pdf)
 
-print(f"✨ Total eventos finales (Webs + Cultura Popular en rango): {len(json_eventos_validos)}")
-
-json_str_raw = json.dumps(json_eventos_validos, ensure_ascii=False, indent=2)
+print(f"\n💾 Total eventos acumulados: {len(json_eventos_validos)}")
 
 with open("eventos_30dias.json", "w", encoding="utf-8") as f:
-    f.write(json_str_raw)
+    f.write(json.dumps(json_eventos_validos, ensure_ascii=False, indent=2))
 
 # ==========================================
 # 3. Generación de index.html
@@ -520,9 +563,9 @@ html_template = """<!DOCTYPE html>
 
 html_final = html_template.replace("{{STR_INICIO}}", str_inicio)\
                           .replace("{{STR_FIN}}", str_fin)\
-                          .replace("{{JSON_DATOS}}", json_str_raw)
+                          .replace("{{JSON_DATOS}}", json.dumps(json_eventos_validos, ensure_ascii=False, indent=2))
 
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_final)
 
-print("🎉 ¡index.html actualizado correctamente con selector de fecha integrado!")
+print("🎉 ¡index.html actualizado con procesamiento por lotes!")

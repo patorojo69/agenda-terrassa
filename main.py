@@ -26,15 +26,15 @@ fecha_fin = fecha_inicio + timedelta(days=30)
 str_inicio = fecha_inicio.strftime("%d/%m/%Y")
 str_fin = fecha_fin.strftime("%d/%m/%Y")
 
-# Sesión HTTP configurada con cabeceras avanzadas
+# Sesión HTTP configurada con cabeceras completas de navegador de escritorio
 session = requests.Session()
-session.headers.update({
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+headers_base = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
-    "Accept-Language": "es-ES,es;q=0.9,ca;q=0.8,en;q=0.7",
+    "Accept-Language": "ca-ES,ca;q=0.9,es-ES;q=0.8,es;q=0.7,en-US;q=0.6,en;q=0.5",
     "Cache-Control": "no-cache",
     "Pragma": "no-cache",
-    "Sec-Ch-Ua": '"Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"',
+    "Sec-Ch-Ua": '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"',
     "Sec-Ch-Ua-Mobile": "?0",
     "Sec-Ch-Ua-Platform": '"Windows"',
     "Sec-Fetch-Dest": "document",
@@ -42,10 +42,10 @@ session.headers.update({
     "Sec-Fetch-Site": "cross-site",
     "Sec-Fetch-User": "?1",
     "Upgrade-Insecure-Requests": "1"
-})
+}
+session.headers.update(headers_base)
 
 FUENTES = [
-    {"nombre": "Terrassa Digital", "url": "https://terrassadigital.cat/cultura/", "tipo": "html"},
     {"nombre": "Diari de Terrassa", "url": "https://www.diarideterrassa.com/", "tipo": "html"},
     {"nombre": "JazzTerrassa / Nova Jazz Cava", "url": "https://www.jazzterrassa.org/ca/programacio/upcoming", "tipo": "html"},
     {"nombre": "LaFact Cultural", "url": "https://www.lafactcultural.cat/programacio/", "tipo": "html"},
@@ -91,7 +91,7 @@ try:
 except Exception as e:
     print(f"  ⚠ Aviso al aislar Món Terrassa: {e}")
 
-# Base de datos completa de Festes Populars i Tradicionals de Terrassa (2026)
+# Base de datos completa de Festes, Fires y Tradicions de Terrassa (2026)
 CALENDARIO_ANUAL_CULTURA = [
     {"titulo": "Ball de Reis", "categoria": "Cultura/Patrimonio", "fecha": "03/01/2026", "lugar": "Carrers del centre", "descripcion": "Ball de Reis a càrrec dels Bastoners de Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
     {"titulo": "Cavalcada de Reis", "categoria": "Cultura/Patrimonio", "fecha": "05/01/2026", "lugar": "Recorregut per la ciutat", "descripcion": "Festa de benvinguda i cavalcada de SSMM els Reis Mags d'Orient.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
@@ -107,7 +107,22 @@ CALENDARIO_ANUAL_CULTURA = [
     {"titulo": "Festa de la Castanyada", "categoria": "Cultura/Patrimonio", "fecha": "31/10/2026", "lugar": "Pl. del Progrés", "descripcion": "Festa popular de la Castanyada a càrrec de La Xemeneia.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
     {"titulo": "Diada de la Colla Castellers de Terrassa", "categoria": "Cultura/Patrimonio", "fecha": "07/11/2026", "lugar": "Pl. Vella", "descripcion": "Diada castellera amb actuació dels Castellers de Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
     {"titulo": "Acte d'Encesa de llums de Nadal", "categoria": "Cultura/Patrimonio", "fecha": "28/11/2026", "lugar": "Raval de Montserrat", "descripcion": "Inici oficial de la campanya nadalenca a Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
-    {"titulo": "Arribada del Patge Xiu-Xiu", "categoria": "Cultura/Patrimonio", "fecha": "19/12/2026", "lugar": "Estació del Nord", "descripcion": "Arribada del carter reial Patge Xiu-Xiu a Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"}
+    {"titulo": "Arribada del Patge Xiu-Xiu", "categoria": "Cultura/Patrimonio", "fecha": "19/12/2026", "lugar": "Estació del Nord", "descripcion": "Arribada del carter reial Patge Xiu-Xiu a Terrassa.", "fuente_nombre": "Cultura Popular i Tradicional (PDF)", "fuente_url": "https://www.terrassa.cat/es/cultura-popular-i-tradicional"},
+    # Nuevas ferias directas añadidas
+    {"titulo": "Feria Tradicional de invierno", "categoria": "Cultura/Patrimonio", "fecha": "15/12/2026", "lugar": "Terrassa", "descripcion": "Feria tradicional de invierno en Terrassa.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Feria de la Oliva", "categoria": "Cultura/Patrimonio", "fecha": "18/04/2026", "lugar": "Terrassa", "descripcion": "Feria temática dedicada a la oliva y productos artesanales.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Feria Pirata de las Islas Perdidas del Roc Blanc", "categoria": "Cultura/Patrimonio", "fecha": "10/04/2026", "lugar": "Barri del Roc Blanc, Terrassa", "descripcion": "Feria temática de ambientación pirata.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Feria de las Brujas: Walpurgis", "categoria": "Cultura/Patrimonio", "fecha": "30/04/2026", "lugar": "Terrassa", "descripcion": "Tradicional feria de brujas y esoterismo de Walpurgis.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Mercado de la Feria Modernista", "categoria": "Cultura/Patrimonio", "fecha": "09/05/2026", "lugar": "Centre de Terrassa", "descripcion": "Mercado histórico de ambientación modernista.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Feria Medieval", "categoria": "Cultura/Patrimonio", "fecha": "29/05/2026", "lugar": "Terrassa", "descripcion": "Feria de mercado y ambientación medieval.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Fiesta de la primavera. Volta pel Volta", "categoria": "Cultura/Patrimonio", "fecha": "16/05/2026", "lugar": "Terrassa", "descripcion": "Celebración popular y paseada festiva de primavera.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Feria de verano", "categoria": "Cultura/Patrimonio", "fecha": "03/07/2026", "lugar": "Terrassa", "descripcion": "Feria de actividades y ocio estival.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Vegan Fest", "categoria": "Deportes/Ocio", "fecha": "12/09/2026", "lugar": "Terrassa", "descripcion": "Festival enfocado en el veganismo, gastronomía y sostenibilidad.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Fiesta del Pan", "categoria": "Cultura/Patrimonio", "fecha": "17/10/2026", "lugar": "Terrassa", "descripcion": "Celebración tradicional vinculada a la cultura del pan artesano.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Feria de Sant Galderic", "categoria": "Cultura/Patrimonio", "fecha": "17/10/2026", "lugar": "Terrassa", "descripcion": "Feria tradicional agrícola y artesanal de Sant Galderic.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Feria del Bolet", "categoria": "Cultura/Patrimonio", "fecha": "07/11/2026", "lugar": "Mercado de Sant Pere y calle Ample, Terrassa", "descripcion": "Feria gastronómica dedicada a los boletaire y productos de temporada.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Fiesta de la Paella", "categoria": "Deportes/Ocio", "fecha": "07/11/2026", "lugar": "Terrassa", "descripcion": "Encuentro gastronómico popular en torno a la paella.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"},
+    {"titulo": "Feria de Santa Llúcia", "categoria": "Cultura/Patrimonio", "fecha": "13/12/2026", "lugar": "Terrassa", "descripcion": "Tradicional feria navideña de Santa Llúcia con artículos de belén y artesanía.", "fuente_nombre": "Fires de Terrassa (Ajuntament)", "fuente_url": "https://www.terrassa.cat/es/fires"}
 ]
 
 eventos_pdf_filtrados = []
@@ -119,61 +134,65 @@ for ev in CALENDARIO_ANUAL_CULTURA:
     except Exception:
         pass
 
-# Descarga del resto de fuentes web y almacenamiento estructurado por fuente
+# Descarga de fuentes con reintento automático para evitar errores 503 puntuales (ej. Sala Rasa 64)
 for fuente in FUENTES:
     nombre = fuente["nombre"]
     url = fuente["url"]
     tipo = fuente["tipo"]
     
-    try:
-        domain = "/".join(url.split("/")[:3])
-        session.get(domain, timeout=10)
-        
-        headers_especificos = {
-            "Referer": domain + "/",
-            "Host": url.replace("https://", "").replace("http://", "").split("/")[0]
-        }
-        
-        res = session.get(url, headers=headers_especificos, timeout=15)
-        
-        if res.status_code == 403:
-            headers_alternativos = {
-                "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0",
-                "Referer": "https://www.google.com/"
-            }
-            res = session.get(url, headers=headers_alternativos, timeout=15)
+    exito = False
+    intentos = 2
+    
+    for intento in range(intentos):
+        try:
+            domain = "/".join(url.split("/")[:3])
+            headers_especificos = dict(headers_base)
+            headers_especificos["Referer"] = domain + "/"
+            headers_especificos["Host"] = url.replace("https://", "").replace("http://", "").split("/")[0]
 
-        res.raise_for_status()
-        
-        texto_fuente = ""
-        if tipo == "json_tribe":
-            data = res.json()
-            events = data if isinstance(data, list) else data.get("events", [])
-            items_str = []
-            for ev in events:
-                if isinstance(ev, dict):
-                    title = ev.get("title", "")
-                    start_date = ev.get("start_date", "")
-                    venue_data = ev.get("venue", {})
-                    venue = venue_data.get("venue", "Terrassa") if isinstance(venue_data, dict) else "Terrassa"
-                    description = BeautifulSoup(ev.get("description", ""), 'html.parser').get_text(strip=True)[:250]
-                    url_ev = ev.get("url", url)
-                    if title:
-                        items_str.append(f"Título: {title} | Fecha: {start_date} | Lugar: {venue} | Detalle: {description} | URL: {url_ev}")
-            texto_fuente = "\n".join(items_str)
-                    
-        elif tipo == "html":
-            soup = BeautifulSoup(res.text, 'html.parser')
-            for tag in soup(["script", "style", "nav", "footer", "header", "form", "svg"]):
-                tag.extract()
-            texto_fuente = soup.get_text(separator=' ', strip=True)[:7000]
+            res = session.get(url, headers=headers_especificos, timeout=15)
             
-        if texto_fuente.strip():
-            eventos_crudos_por_fuente.append({"nombre": nombre, "url": url, "contenido": texto_fuente})
+            if res.status_code == 403 or res.status_code == 503:
+                headers_fallback = dict(headers_base)
+                headers_fallback["Referer"] = "https://www.google.com/"
+                res = session.get(url, headers=headers_fallback, timeout=15)
+
+            res.raise_for_status()
             
-        print(f"  ✅ {nombre}: OK.")
-    except Exception as e:
-        print(f"  ❌ {nombre}: Omitido ({e}).")
+            texto_fuente = ""
+            if tipo == "json_tribe":
+                data = res.json()
+                events = data if isinstance(data, list) else data.get("events", [])
+                items_str = []
+                for ev in events:
+                    if isinstance(ev, dict):
+                        title = ev.get("title", "")
+                        start_date = ev.get("start_date", "")
+                        venue_data = ev.get("venue", {})
+                        venue = venue_data.get("venue", "Terrassa") if isinstance(venue_data, dict) else "Terrassa"
+                        description = BeautifulSoup(ev.get("description", ""), 'html.parser').get_text(strip=True)[:250]
+                        url_ev = ev.get("url", url)
+                        if title:
+                            items_str.append(f"Título: {title} | Fecha: {start_date} | Lugar: {venue} | Detalle: {description} | URL: {url_ev}")
+                texto_fuente = "\n".join(items_str)
+                        
+            elif tipo == "html":
+                soup = BeautifulSoup(res.text, 'html.parser')
+                for tag in soup(["script", "style", "nav", "footer", "header", "form", "svg"]):
+                    tag.extract()
+                texto_fuente = soup.get_text(separator=' ', strip=True)[:7000]
+                
+            if texto_fuente.strip():
+                eventos_crudos_por_fuente.append({"nombre": nombre, "url": url, "contenido": texto_fuente})
+                
+            print(f"  ✅ {nombre}: OK.")
+            exito = True
+            break
+        except Exception as e:
+            if intento == intentos - 1:
+                print(f"  ❌ {nombre}: Omitido tras {intentos} intentos ({e}).")
+            else:
+                time.sleep(2)
 
 # ==========================================
 # 2. Extracción de Eventos con Gemini
@@ -278,7 +297,7 @@ for idx, lote in enumerate(lotes, start=1):
             except Exception as e:
                 print(f"  ⚠ Error parseando Lote {idx}: {e}")
 
-# 3. Fusionamos con el calendario tradicional del PDF
+# 3. Fusionamos con el calendario tradicional del PDF y las ferias directas
 for ev_pdf in eventos_pdf_filtrados:
     json_eventos_validos.append(ev_pdf)
 
@@ -568,4 +587,4 @@ html_final = html_template.replace("{{STR_INICIO}}", str_inicio)\
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_final)
 
-print("🎉 ¡index.html actualizado con procesamiento por lotes!")
+print("🎉 ¡index.html actualizado correctamente con ferias directas y corrección de Sala Rasa 64!")
